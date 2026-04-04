@@ -3,21 +3,23 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Student Remarks Generator v2 – TechKrystle</title>
+<title>Student Remarks Generator – TechKrystle</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
   :root {
-    --bg: #0f1117; --surface: #181c27; --card: #1e2334; --border: #2a3050;
-    --accent: #f5a623; --accent2: #e05c3a; --green: #3ecf8e;
-    --blue: #5b9cf6; --purple: #a78bfa;
-    --text: #e8eaf0; --muted: #8890aa; --radius: 14px;
+    --bg: #f4f6fb; --surface: #ffffff; --card: #ffffff; --card2: #f0f3fa;
+    --border: #dce1ef; --accent: #e07b1a; --accent2: #c94f28;
+    --accentbg: #fff5e8; --green: #1a9e6a; --greenbg: #eafaf3;
+    --blue: #2563c7; --bluebg: #eef3ff; --purple: #6c3fcb; --purplebg: #f2eeff;
+    --text: #1a1e2e; --text2: #3a4060; --muted: #7a82a0; --radius: 14px;
+    --shadow: 0 2px 12px rgba(30,40,90,0.08);
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
   body::before {
     content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
-    background: radial-gradient(ellipse 60% 40% at 80% 10%, rgba(245,166,35,0.07) 0%, transparent 60%),
-                radial-gradient(ellipse 40% 50% at 10% 80%, rgba(224,92,58,0.06) 0%, transparent 55%);
+    background: radial-gradient(ellipse 55% 35% at 90% 5%, rgba(224,123,26,0.07) 0%, transparent 60%),
+                radial-gradient(ellipse 40% 40% at 5% 90%, rgba(37,99,199,0.06) 0%, transparent 60%);
   }
   .wrapper { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; padding: 40px 20px 80px; }
 
@@ -31,7 +33,7 @@
   .version-badge { display: inline-block; background: linear-gradient(135deg,rgba(91,156,246,0.2),rgba(167,139,250,0.2)); border: 1px solid rgba(167,139,250,0.35); color: var(--purple); padding: 3px 12px; border-radius: 99px; font-size: 11px; font-weight: 700; letter-spacing: 1px; margin-top: 10px; }
 
   /* Cards */
-  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 32px; margin-bottom: 18px; }
+  .card { background: var(--card); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 26px 28px; margin-bottom: 16px; box-shadow: var(--shadow); }
   .card-title { font-size: 11px; font-weight: 600; letter-spacing: 1.8px; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
   .card-title::after { content:''; flex:1; height:1px; background: var(--border); }
 
@@ -43,9 +45,9 @@
   label { font-size: 12px; font-weight: 600; color: var(--muted); letter-spacing: 0.5px; text-transform: uppercase; }
 
   input, select, textarea {
-    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    background: var(--card2, #f0f3fa); border: 1.5px solid var(--border); border-radius: 9px;
     color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px;
-    padding: 11px 14px; transition: border-color .2s, box-shadow .2s; outline: none; width: 100%;
+    padding: 10px 13px; transition: border-color .2s, box-shadow .2s; outline: none; width: 100%;
   }
   input:focus, select:focus, textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(245,166,35,.12); }
   select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238890aa' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 36px; cursor: pointer; }
@@ -118,7 +120,7 @@
   .badge-tone-encouraging { background: rgba(62,207,142,.12); color: var(--green); border: 1px solid rgba(62,207,142,.3); }
   .badge-level { background: rgba(167,139,250,.12); color: var(--purple); border: 1px solid rgba(167,139,250,.3); }
 
-  .remark-text { font-size: 14px; line-height: 1.78; color: #c8cdd8; background: var(--surface); border-radius: 8px; padding: 14px 16px; border: 1px solid var(--border); }
+  .remark-text { font-size: 14.5px; line-height: 1.8; color: var(--text2); background: var(--card2, #f0f3fa); border-radius: 9px; padding: 14px 16px; border: 1.5px solid var(--border); }
   .remark-actions { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
   .btn-copy-remark { padding: 6px 14px; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--muted); font-family: 'DM Sans', sans-serif; transition: all .15s; }
   .btn-copy-remark:hover { border-color: var(--accent); color: var(--accent); }
@@ -169,7 +171,7 @@
   <!-- CLASS & BOARD -->
   <div class="card form-section">
     <div class="card-title">Class & Board Details</div>
-    <div class="grid-3">
+    <div class="grid-2">
       <div class="field">
         <label>Board</label>
         <select id="board">
@@ -190,13 +192,7 @@
           <option value="11">Class 11</option><option value="12">Class 12</option>
         </select>
       </div>
-      <div class="field">
-        <label>Term</label>
-        <select id="term">
-          <option>Term 1</option><option>Term 2</option><option>Annual</option>
-          <option>Mid-Term</option><option>Quarter 1</option><option>Quarter 2</option>
-        </select>
-      </div>
+
     </div>
   </div>
 
@@ -872,67 +868,62 @@ function getPronouns(gender) {
 function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
 function buildRemark(name, gender, pct, tier, customNote, traits, term, board, grade, tone) {
-  const { pronoun, pronoun_cap, pronoun_sub, pronoun_obj, pronoun_ref } = getPronouns(gender);
-  const level = getLevel(grade);
-  const areas = improvementAreasByLevel[level];
-  const area = pickRandom(areas);
-  const templates = T[tier][tone][level];
-  let remark = pickRandom(templates);
+  // Generate each pronoun form explicitly - no string substitution errors
+  let sub, obj, pos, cap, ref;
+  if (gender === 'female')  { sub='she'; obj='her';  pos='her';   cap='She';  ref='herself';    }
+  else if (gender==='neutral'){ sub='they';obj='them'; pos='their'; cap='They'; ref='themselves'; }
+  else                       { sub='he';  obj='him';  pos='his';   cap='He';   ref='himself';    }
 
+  const level = parseInt(grade) <= 5 ? 'primary' : 'secondary';
+  const areaPool = level==='primary'
+    ? ['Maths','English reading','Hindi writing','EVS concepts','number work','English spellings','reading aloud','number sense','written expression','basic concepts']
+    : ['Mathematics','English grammar and writing','Science concepts','Social Studies','Hindi','problem-solving','time management in exams','answer presentation','reading comprehension','analytical thinking'];
+  const area = areaPool[Math.floor(Math.random() * areaPool.length)];
+
+  const templates = T[tier][tone][level];
+  let remark = templates[Math.floor(Math.random() * templates.length)];
+
+  // Replace ALL placeholders with correct pronoun forms
   remark = remark
     .replace(/{name}/g, name)
-    .replace(/{pronoun_cap}/g, pronoun_cap)
-    .replace(/{pronoun_ref}/g, pronoun_ref)
-    .replace(/{pronoun_obj}/g, pronoun_obj)
-    .replace(/{pronoun_sub}/g, pronoun_sub)
-    .replace(/{pronoun}/g, pronoun)
+    .replace(/{pronoun_cap}/g, cap)
+    .replace(/{pronoun_sub}/g, sub)
+    .replace(/{pronoun_ref}/g, ref)
+    .replace(/{pronoun_obj}/g, obj)
+    .replace(/{pronoun}/g, pos)
     .replace(/{area}/g, area)
-    .replace(/{term}/g, term)
+    .replace(/{term}/g, term || 'this term')
     .replace(/{board}/g, board)
     .replace(/{level}/g, level === 'primary' ? 'Primary School' : 'Secondary School')
     .replace(/{grade}/g, `Class ${grade}`);
 
-  // ── Post-process: fix pronoun used as subject before a verb ──
-  // e.g. "his has achieved" → "he has achieved"
-  // e.g. "her is capable"  → "she is capable"
-  // e.g. "his self"        → "himself"  (already handled above via {pronoun_ref})
-  const subjectVerbs = /\b(his|her|their)\b(?='s\s+best|\s+(?:has|have|had|is|are|was|were|will|would|can|could|should|must|might|may|does|do|did|continues|approaches|participates|engages|needs|works|tries|comes|puts|brings|shows|sets|faces|finds|develops|seeks|remains|grows|learns|strives|achieves|excels|produces|performs|appears|seems|becomes|challenges|earns|gives|keeps|keeps|improves|understands|won't|doesn't|isn't))/gi;
+  // Safety net: fix any remaining subject-position errors
+  // Pattern: possessive pronoun immediately before a verb (means it should be subject)
+  const fixes = {his: 'he', her: 'she', their: 'they'};
+  const verbList = 'has|have|had|is|are|was|were|will|would|can|could|should|must|might|may|does|do|did|continues|approaches|participates|engages|needs|works|tries|comes|puts|brings|shows|sets|faces|finds|develops|seeks|remains|grows|learns|strives|achieves|excels|produces|performs|appears|seems|becomes|challenges|gives|keeps|improves|understands|won\'t|doesn\'t|isn\'t|hasn\'t';
+  remark = remark.replace(
+    new RegExp(`\b(his|her|their)\b(?=\s+(?:${verbList}))`, 'gi'),
+    (m) => fixes[m.toLowerCase()] || m
+  );
+  // Fix possessive doubling: "his's" "her's" "their's"
+  remark = remark.replace(/\b(his|her|their)'s\b/gi, m => m.split("'s")[0]);
 
-  remark = remark.replace(subjectVerbs, (match) => {
-    const m = match.toLowerCase();
-    if (m === 'his') return pronoun_sub;   // he
-    if (m === 'her') return pronoun_sub;   // she
-    if (m === 'their') return pronoun_sub; // they
-    return match;
-  });
-
-  // Fix "his's" / "her's" / "their's" → possessive (remove the extra 's)
-  remark = remark.replace(/\b(his|her|their)'s\b/gi, (match) => {
-    return match.split("'s")[0]; // "his's" → "his", "her's" → "her"
-  });
-
-  if (traits.length > 0) {
+  if (traits && traits.length > 0) {
     const traitsStr = traits.join(', ');
-    if (tone === 'encouraging') {
-      remark += ` Your ${traitsStr} ${traits.length > 1 ? 'are' : 'is'} something to be really proud of.`;
-    } else {
-      remark += ` ${name}'s ${traitsStr} ${traits.length > 1 ? 'are' : 'is'} particularly commendable.`;
-    }
+    if (tone === 'encouraging') remark += ` Your ${traitsStr} ${traits.length > 1 ? 'are' : 'is'} something to be really proud of.`;
+    else remark += ` ${name}'s ${traitsStr} ${traits.length > 1 ? 'are' : 'is'} particularly commendable.`;
   }
   if (customNote && customNote.trim()) {
     const note = customNote.trim();
     const noteLower = note.charAt(0).toLowerCase() + note.slice(1);
-    if (tone === 'encouraging') {
-      remark += ` It is also worth noting that ${noteLower}`;
-    } else if (tone === 'warm') {
-      remark += ` We also wanted to mention that ${noteLower}`;
-    } else {
-      remark += ` The school also notes that ${noteLower}`;
-    }
-    if (!remark.trim().match(/[.!?]$/)) remark += '.';
+    const noteClean = noteLower.match(/[.!?]$/) ? noteLower : noteLower + '.';
+    if (tone === 'formal')    remark += ` The school also notes that ${noteClean}`;
+    else if (tone === 'warm') remark += ` We also wanted to mention that ${noteClean}`;
+    else                      remark += ` It is also worth noting that ${noteClean}`;
   }
   return remark;
 }
+
 
 // ─── Student UI ────────────────────────────────────────────────────────────
 function addStudent() {
@@ -974,12 +965,7 @@ function addStudent() {
         <input type="number" id="rank-${id}" placeholder="Optional" min="1"/>
       </div>
     </div>
-    <div>
-      <label style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;">Subject Marks (optional)</label>
-      <div class="subjects-grid">
-        ${defaultSubjects.map(s => `<div class="subject-item"><span>${s}</span><input type="number" placeholder="–" min="0" max="100"/></div>`).join('')}
-      </div>
-    </div>
+
     <div class="field" style="margin-top:12px">
       <label>Teacher's Note (optional)</label>
       <textarea id="custom-${id}" placeholder="e.g. excellent in art, shy but improving, struggles with fractions…"></textarea>
@@ -1104,10 +1090,26 @@ function generateRemarks() {
 function copyRemark(id, btn) {
   const el = document.getElementById(`remark-text-${id}`);
   if (!el) return;
-  navigator.clipboard.writeText(el.innerText).then(() => {
+  const text = el.innerText || el.textContent;
+  function markCopied() {
     btn.textContent = '✓ Copied!'; btn.classList.add('copied');
     setTimeout(() => { btn.textContent = '📋 Copy'; btn.classList.remove('copied'); }, 2000);
-  });
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(markCopied).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;';
+      document.body.appendChild(ta); ta.focus(); ta.select();
+      try { document.execCommand('copy'); markCopied(); } catch(e) {}
+      document.body.removeChild(ta);
+    });
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    try { document.execCommand('copy'); markCopied(); } catch(e) {}
+    document.body.removeChild(ta);
+  }
 }
 
 function regenRemark(btn) {
@@ -1137,17 +1139,29 @@ function copyAll() {
   const boxes = document.querySelectorAll('.remark-box');
   const lines = [];
   boxes.forEach(box => {
-    const name = box.querySelector('.student-name')?.innerText || '';
-    const text = box.querySelector('.remark-text')?.innerText || '';
+    const name = box.querySelector('.student-name')?.textContent || '';
+    const text = box.querySelector('.remark-text')?.textContent || '';
     lines.push(`${name}\n${text}`);
   });
-  navigator.clipboard.writeText(lines.join('\n\n---\n\n')).then(() => {
-    const btn = document.querySelector('.btn-row .btn-sm');
+  const all = lines.join('\n\n---\n\n');
+  const btn = document.querySelector('.btn-row .btn-sm');
+  function markDone() {
     const orig = btn.textContent;
     btn.textContent = '✓ All Copied!';
     setTimeout(() => btn.textContent = orig, 2000);
-  });
+  }
+  function fallback() {
+    const ta = document.createElement('textarea');
+    ta.value = all; ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    try { document.execCommand('copy'); markDone(); } catch(e) {}
+    document.body.removeChild(ta);
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(all).then(markDone).catch(fallback);
+  } else { fallback(); }
 }
+
 
 function buildPrintArea(students, board, grade, term, tone) {
   const el = document.getElementById('print-area');
