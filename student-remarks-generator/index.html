@@ -255,11 +255,6 @@
 </div>
 
 <script>
-// ════════════════════════════════════════════════════════════════
-// TEMPLATE BANK  —  5 tiers × 3 tones × 2 levels × 15 templates
-// = 225 unique remark templates
-// ════════════════════════════════════════════════════════════════
-
 const T = {
 
   // ──────────────────────────────────────────────
@@ -833,351 +828,310 @@ const T = {
   }
 };
 
-// ─── Improvement Areas ─────────────────────────────────────────────────────
-const improvementAreasByLevel = {
-  primary: ["Maths", "English reading", "Hindi writing", "EVS concepts", "number work", "English spellings", "basic concepts", "drawing and writing neatly", "reading aloud", "number sense"],
-  secondary: ["Mathematics", "English grammar and writing", "Science concepts", "Social Studies", "Hindi", "problem-solving", "time management in exams", "answer presentation", "reading comprehension", "analytical thinking"]
-};
-
-// ─── Helpers ───────────────────────────────────────────────────────────────
-const defaultSubjects = ["Maths", "English", "Science", "S.St.", "Hindi"];
-let studentCount = 0;
-
-function getLevel(grade) { return parseInt(grade) <= 5 ? 'primary' : 'secondary'; }
-function getPerformanceTier(pct) {
+// ═══════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════
+function getTier(pct) {
   if (pct >= 90) return 'outstanding';
   if (pct >= 75) return 'excellent';
   if (pct >= 60) return 'good';
   if (pct >= 45) return 'average';
   return 'needsImprovement';
 }
-function getGradeLabel(pct) {
-  if (pct >= 90) return { grade: 'A+', label: 'Outstanding' };
-  if (pct >= 80) return { grade: 'A',  label: 'Excellent' };
-  if (pct >= 70) return { grade: 'B+', label: 'Very Good' };
-  if (pct >= 60) return { grade: 'B',  label: 'Good' };
-  if (pct >= 50) return { grade: 'C',  label: 'Satisfactory' };
-  if (pct >= 35) return { grade: 'D',  label: 'Needs Effort' };
-  return { grade: 'E', label: 'Needs Improvement' };
+function getGradeInfo(pct) {
+  if (pct >= 90) return { g:'A+', l:'Outstanding' };
+  if (pct >= 80) return { g:'A',  l:'Excellent'   };
+  if (pct >= 70) return { g:'B+', l:'Very Good'   };
+  if (pct >= 60) return { g:'B',  l:'Good'        };
+  if (pct >= 50) return { g:'C',  l:'Satisfactory'};
+  if (pct >= 35) return { g:'D',  l:'Needs Effort'};
+  return           { g:'E',  l:'Needs Improvement' };
 }
-function getPronouns(gender) {
-  if (gender === 'female') return { pronoun: 'her', pronoun_cap: 'She', pronoun_sub: 'she', pronoun_obj: 'her', pronoun_ref: 'herself' };
-  if (gender === 'neutral') return { pronoun: 'their', pronoun_cap: 'They', pronoun_sub: 'they', pronoun_obj: 'them', pronoun_ref: 'themselves' };
-  return { pronoun: 'his', pronoun_cap: 'He', pronoun_sub: 'he', pronoun_obj: 'him', pronoun_ref: 'himself' };
+function getLevel(grade) { return parseInt(grade, 10) <= 5 ? 'primary' : 'secondary'; }
+function pickRandom(arr)  { return arr[Math.floor(Math.random() * arr.length)]; }
+
+var areasByLevel = {
+  primary:   ['Maths','English reading','Hindi writing','EVS concepts','number work',
+               'English spellings','reading aloud','number sense','written expression','basic concepts'],
+  secondary: ['Mathematics','English grammar and writing','Science concepts','Social Studies',
+               'Hindi','problem-solving','time management in exams','answer presentation',
+               'reading comprehension','analytical thinking']
+};
+
+// ═══════════════════════════════════════════════════
+// PRONOUNS — returns all forms for a given gender
+// ═══════════════════════════════════════════════════
+function getP(gender) {
+  if (gender === 'female')  return { sub:'she',  obj:'her',  pos:'her',   cap:'She',  ref:'herself'    };
+  if (gender === 'neutral') return { sub:'they', obj:'them', pos:'their', cap:'They', ref:'themselves' };
+  return                           { sub:'he',   obj:'him',  pos:'his',   cap:'He',   ref:'himself'    };
 }
-function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
-function buildRemark(name, gender, pct, tier, customNote, traits, term, board, grade, tone) {
-  // Generate each pronoun form explicitly - no string substitution errors
-  let sub, obj, pos, cap, ref;
-  if (gender === 'female')  { sub='she'; obj='her';  pos='her';   cap='She';  ref='herself';    }
-  else if (gender==='neutral'){ sub='they';obj='them'; pos='their'; cap='They'; ref='themselves'; }
-  else                       { sub='he';  obj='him';  pos='his';   cap='He';   ref='himself';    }
+// ═══════════════════════════════════════════════════
+// BUILD REMARK
+// ═══════════════════════════════════════════════════
+function buildRemark(name, gender, tier, tone, level, area, traits, customNote) {
+  var p = getP(gender);
+  var templates = T[tier][tone][level];
+  var remark = pickRandom(templates);
 
-  const level = parseInt(grade) <= 5 ? 'primary' : 'secondary';
-  const areaPool = level==='primary'
-    ? ['Maths','English reading','Hindi writing','EVS concepts','number work','English spellings','reading aloud','number sense','written expression','basic concepts']
-    : ['Mathematics','English grammar and writing','Science concepts','Social Studies','Hindi','problem-solving','time management in exams','answer presentation','reading comprehension','analytical thinking'];
-  const area = areaPool[Math.floor(Math.random() * areaPool.length)];
-
-  const templates = T[tier][tone][level];
-  let remark = templates[Math.floor(Math.random() * templates.length)];
-
-  // Replace ALL placeholders with correct pronoun forms
+  // All placeholder replacements — order matters (longest first)
   remark = remark
-    .replace(/{name}/g, name)
-    .replace(/{pronoun_cap}/g, cap)
-    .replace(/{pronoun_sub}/g, sub)
-    .replace(/{pronoun_ref}/g, ref)
-    .replace(/{pronoun_obj}/g, obj)
-    .replace(/{pronoun}/g, pos)
-    .replace(/{area}/g, area)
-    .replace(/{term}/g, term || 'this term')
-    .replace(/{board}/g, board)
-    .replace(/{level}/g, level === 'primary' ? 'Primary School' : 'Secondary School')
-    .replace(/{grade}/g, `Class ${grade}`);
+    .split('{pronoun_cap}').join(p.cap)
+    .split('{pronoun_sub}').join(p.sub)
+    .split('{pronoun_ref}').join(p.ref)
+    .split('{pronoun_obj}').join(p.obj)
+    .split('{pronoun}').join(p.pos)
+    .split('{name}').join(name)
+    .split('{area}').join(area)
+    .split('{term}').join('this term')
+    .split('{level}').join(level === 'primary' ? 'Primary School' : 'Secondary School');
 
-  // Safety net: fix any remaining subject-position errors
-  // Pattern: possessive pronoun immediately before a verb (means it should be subject)
-  const fixes = {his: 'he', her: 'she', their: 'they'};
-  const verbList = 'has|have|had|is|are|was|were|will|would|can|could|should|must|might|may|does|do|did|continues|approaches|participates|engages|needs|works|tries|comes|puts|brings|shows|sets|faces|finds|develops|seeks|remains|grows|learns|strives|achieves|excels|produces|performs|appears|seems|becomes|challenges|gives|keeps|improves|understands|won\'t|doesn\'t|isn\'t|hasn\'t';
-  remark = remark.replace(
-    new RegExp(`\b(his|her|their)\b(?=\s+(?:${verbList}))`, 'gi'),
-    (m) => fixes[m.toLowerCase()] || m
-  );
-  // Fix possessive doubling: "his's" "her's" "their's"
-  remark = remark.replace(/\b(his|her|their)'s\b/gi, m => m.split("'s")[0]);
-
+  // Append traits
   if (traits && traits.length > 0) {
-    const traitsStr = traits.join(', ');
-    if (tone === 'encouraging') remark += ` Your ${traitsStr} ${traits.length > 1 ? 'are' : 'is'} something to be really proud of.`;
-    else remark += ` ${name}'s ${traitsStr} ${traits.length > 1 ? 'are' : 'is'} particularly commendable.`;
+    var tStr = traits.join(', ');
+    if (tone === 'encouraging') {
+      remark += ' Your ' + tStr + (traits.length > 1 ? ' are' : ' is') + ' something to be really proud of.';
+    } else {
+      remark += ' ' + name + "'s " + tStr + (traits.length > 1 ? ' are' : ' is') + ' particularly commendable.';
+    }
   }
+
+  // Append custom note naturally — no label prefix
   if (customNote && customNote.trim()) {
-    const note = customNote.trim();
-    const noteLower = note.charAt(0).toLowerCase() + note.slice(1);
-    const noteClean = noteLower.match(/[.!?]$/) ? noteLower : noteLower + '.';
-    if (tone === 'formal')    remark += ` The school also notes that ${noteClean}`;
-    else if (tone === 'warm') remark += ` We also wanted to mention that ${noteClean}`;
-    else                      remark += ` It is also worth noting that ${noteClean}`;
+    var note = customNote.trim();
+    var n = note.charAt(0).toLowerCase() + note.slice(1);
+    var nc = /[.!?]$/.test(n) ? n : n + '.';
+    if (tone === 'formal')      remark += ' The school also notes that ' + nc;
+    else if (tone === 'warm')   remark += ' We also wanted to mention that ' + nc;
+    else                        remark += ' It is also worth noting that ' + nc;
   }
   return remark;
 }
 
+// ═══════════════════════════════════════════════════
+// COPY HELPERS
+// ═══════════════════════════════════════════════════
+function doCopy(text, btn, label) {
+  var orig = btn.textContent;
+  function win() {
+    btn.textContent = label;
+    btn.classList.add('copied');
+    setTimeout(function() { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
+  }
+  function fallback() {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0;';
+    document.body.appendChild(ta);
+    ta.focus(); ta.select();
+    try { document.execCommand('copy'); win(); } catch(e) { btn.textContent = 'Select text manually'; }
+    document.body.removeChild(ta);
+  }
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(win).catch(fallback);
+  } else { fallback(); }
+}
 
-// ─── Student UI ────────────────────────────────────────────────────────────
+function copyRemark(btn) {
+  var box = btn.closest('.remark-box');
+  var el  = box && box.querySelector('.remark-text');
+  if (el) doCopy(el.textContent, btn, '\u2713 Copied!');
+}
+
+function copyAll() {
+  var boxes = document.querySelectorAll('.remark-box');
+  var lines = [];
+  boxes.forEach(function(box) {
+    var n = box.querySelector('.student-name');
+    var t = box.querySelector('.remark-text');
+    lines.push((n ? n.textContent : '') + '\n' + (t ? t.textContent : ''));
+  });
+  var btn = document.querySelector('.btn-row .btn-sm');
+  doCopy(lines.join('\n\n---\n\n'), btn, '\u2713 All Copied!');
+}
+
+// ═══════════════════════════════════════════════════
+// STUDENT CARD
+// ═══════════════════════════════════════════════════
+var studentCount = 0;
+
 function addStudent() {
   studentCount++;
-  const id = studentCount;
-  const div = document.createElement('div');
+  var id  = studentCount;
+  var div = document.createElement('div');
   div.className = 'student-card';
-  div.id = `student-${id}`;
-  div.innerHTML = `
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-      <span style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;">Student #${id}</span>
-      ${id > 1 ? `<button onclick="removeStudent(${id})" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:20px;line-height:1;padding:0 4px;">×</button>` : ''}
-    </div>
-    <div class="grid-2" style="margin-bottom:12px">
-      <div class="field">
-        <label>Student Name</label>
-        <input type="text" id="name-${id}" placeholder="e.g. Aarav Sharma"/>
-      </div>
-      <div class="field">
-        <label>Gender</label>
-        <select id="gender-${id}">
-          <option value="male">Male (He/Him)</option>
-          <option value="female">Female (She/Her)</option>
-          <option value="neutral">Neutral (They/Them)</option>
-        </select>
-      </div>
-    </div>
-    <div class="grid-3" style="margin-bottom:12px">
-      <div class="field">
-        <label>Total Marks</label>
-        <input type="number" id="total-${id}" placeholder="500" min="0"/>
-      </div>
-      <div class="field">
-        <label>Marks Obtained</label>
-        <input type="number" id="obtained-${id}" placeholder="420" min="0"/>
-      </div>
-      <div class="field">
-        <label>Rank in Class</label>
-        <input type="number" id="rank-${id}" placeholder="Optional" min="1"/>
-      </div>
-    </div>
-
-    <div class="field" style="margin-top:12px">
-      <label>Teacher's Note (optional)</label>
-      <textarea id="custom-${id}" placeholder="e.g. excellent in art, shy but improving, struggles with fractions…"></textarea>
-    </div>
-    <div style="margin-top:14px">
-      <label style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:8px;">Behavioural Traits (optional)</label>
-      <div class="tags-grid" id="traits-${id}">
-        <input type="checkbox" class="tag-check" id="t-${id}-1" value="regular attendance"><label class="tag-label" for="t-${id}-1">Regular Attendance</label>
-        <input type="checkbox" class="tag-check" id="t-${id}-2" value="active participation"><label class="tag-label" for="t-${id}-2">Active Participation</label>
-        <input type="checkbox" class="tag-check" id="t-${id}-3" value="excellent behaviour"><label class="tag-label" for="t-${id}-3">Excellent Behaviour</label>
-        <input type="checkbox" class="tag-check" id="t-${id}-4" value="leadership qualities"><label class="tag-label" for="t-${id}-4">Leadership</label>
-        <input type="checkbox" class="tag-check" id="t-${id}-5" value="creative thinking"><label class="tag-label" for="t-${id}-5">Creative Thinking</label>
-        <input type="checkbox" class="tag-check" id="t-${id}-6" value="team spirit"><label class="tag-label" for="t-${id}-6">Team Spirit</label>
-        <input type="checkbox" class="tag-check" id="t-${id}-7" value="punctuality"><label class="tag-label" for="t-${id}-7">Punctuality</label>
-        <input type="checkbox" class="tag-check" id="t-${id}-8" value="extra-curricular involvement"><label class="tag-label" for="t-${id}-8">Extra-Curricular</label>
-        <input type="checkbox" class="tag-check" id="t-${id}-9" value="curiosity and love of learning"><label class="tag-label" for="t-${id}-9">Curious Learner</label>
-        <input type="checkbox" class="tag-check" id="t-${id}-10" value="self-discipline"><label class="tag-label" for="t-${id}-10">Self-Discipline</label>
-        <input type="checkbox" class="tag-check" id="t-${id}-11" value="helping peers"><label class="tag-label" for="t-${id}-11">Helps Peers</label>
-        <input type="checkbox" class="tag-check" id="t-${id}-12" value="neat and tidy work"><label class="tag-label" for="t-${id}-12">Neat Work</label>
-      </div>
-    </div>
-  `;
+  div.id = 'student-' + id;
+  div.innerHTML =
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">' +
+      '<span style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;">Student #' + id + '</span>' +
+      (id > 1 ? '<button onclick="removeStudent(' + id + ')" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:20px;line-height:1;padding:0 4px;">&times;</button>' : '') +
+    '</div>' +
+    '<div class="grid-2" style="margin-bottom:12px">' +
+      '<div class="field"><label>Student Name</label>' +
+        '<input type="text" id="sname' + id + '" placeholder="e.g. Aarav Sharma"/></div>' +
+      '<div class="field"><label>Gender</label>' +
+        '<select id="sgender' + id + '">' +
+          '<option value="male">Male (He/Him)</option>' +
+          '<option value="female">Female (She/Her)</option>' +
+          '<option value="neutral">Neutral (They/Them)</option>' +
+        '</select></div>' +
+    '</div>' +
+    '<div class="grid-2" style="margin-bottom:12px">' +
+      '<div class="field"><label>Total Marks</label>' +
+        '<input type="number" id="stotal' + id + '" placeholder="500" min="0"/></div>' +
+      '<div class="field"><label>Marks Obtained</label>' +
+        '<input type="number" id="sobtained' + id + '" placeholder="420" min="0"/></div>' +
+    '</div>' +
+    '<div class="field" style="margin-bottom:12px"><label>Teacher\'s Note (optional)</label>' +
+      '<textarea id="scustom' + id + '" placeholder="e.g. excellent in art, shy but improving\u2026"></textarea>' +
+    '</div>' +
+    '<div><label style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:8px;">Behavioural Traits (optional)</label>' +
+      '<div class="tags-grid" id="straits' + id + '">' +
+        '<input type="checkbox" class="tag-check" id="ta' + id + '" value="regular attendance"><label class="tag-label" for="ta' + id + '">Regular Attendance</label>' +
+        '<input type="checkbox" class="tag-check" id="tb' + id + '" value="active participation"><label class="tag-label" for="tb' + id + '">Active Participation</label>' +
+        '<input type="checkbox" class="tag-check" id="tc' + id + '" value="excellent behaviour"><label class="tag-label" for="tc' + id + '">Excellent Behaviour</label>' +
+        '<input type="checkbox" class="tag-check" id="td' + id + '" value="leadership qualities"><label class="tag-label" for="td' + id + '">Leadership</label>' +
+        '<input type="checkbox" class="tag-check" id="te' + id + '" value="creative thinking"><label class="tag-label" for="te' + id + '">Creative Thinking</label>' +
+        '<input type="checkbox" class="tag-check" id="tf' + id + '" value="team spirit"><label class="tag-label" for="tf' + id + '">Team Spirit</label>' +
+        '<input type="checkbox" class="tag-check" id="tg' + id + '" value="punctuality"><label class="tag-label" for="tg' + id + '">Punctuality</label>' +
+        '<input type="checkbox" class="tag-check" id="th' + id + '" value="extra-curricular involvement"><label class="tag-label" for="th' + id + '">Extra-Curricular</label>' +
+        '<input type="checkbox" class="tag-check" id="ti' + id + '" value="curiosity and love of learning"><label class="tag-label" for="ti' + id + '">Curious Learner</label>' +
+        '<input type="checkbox" class="tag-check" id="tj' + id + '" value="self-discipline"><label class="tag-label" for="tj' + id + '">Self-Discipline</label>' +
+        '<input type="checkbox" class="tag-check" id="tk' + id + '" value="helping peers"><label class="tag-label" for="tk' + id + '">Helps Peers</label>' +
+        '<input type="checkbox" class="tag-check" id="tl' + id + '" value="neat and tidy work"><label class="tag-label" for="tl' + id + '">Neat Work</label>' +
+      '</div>' +
+    '</div>';
   document.getElementById('students-container').appendChild(div);
 }
 
 function removeStudent(id) {
-  const el = document.getElementById(`student-${id}`);
+  var el = document.getElementById('student-' + id);
   if (el) el.remove();
 }
 
 document.getElementById('add-student').addEventListener('click', addStudent);
 
-// ─── Generate ──────────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════
+// GENERATE
+// ═══════════════════════════════════════════════════
 function generateRemarks() {
-  const board   = document.getElementById('board').value;
-  const grade   = document.getElementById('grade').value;
-  const term    = document.getElementById('term').value;
-  const tone    = document.querySelector('input[name="tone"]:checked').value;
+  var board = document.getElementById('board').value;
+  var grade = document.getElementById('grade').value;
+  var tEl   = document.querySelector('input[name="tone"]:checked');
+  var tone  = tEl ? tEl.value : 'warm';
+  var level = getLevel(grade);
 
-  const students = [];
-  for (let i = 1; i <= studentCount; i++) {
-    const nameEl = document.getElementById(`name-${i}`);
-    if (!nameEl) continue;
-    const name = nameEl.value.trim();
+  var students = [];
+  for (var i = 1; i <= studentCount; i++) {
+    var nEl = document.getElementById('sname' + i);
+    if (!nEl) continue;
+    var name = nEl.value.trim();
     if (!name) continue;
-    const gender   = document.getElementById(`gender-${i}`).value;
-    const total    = parseFloat(document.getElementById(`total-${i}`).value) || 0;
-    const obtained = parseFloat(document.getElementById(`obtained-${i}`).value) || 0;
-    const rank     = document.getElementById(`rank-${i}`).value;
-    const custom   = document.getElementById(`custom-${i}`).value;
-    const pct      = total > 0 ? Math.round((obtained / total) * 100) : 0;
-    const traits   = [...document.querySelectorAll(`#traits-${i} .tag-check:checked`)].map(c => c.value);
-    students.push({ id: i, name, gender, total, obtained, pct, rank, custom, traits });
+    var gender   = document.getElementById('sgender'   + i).value;
+    var total    = parseFloat(document.getElementById('stotal'    + i).value) || 0;
+    var obtained = parseFloat(document.getElementById('sobtained' + i).value) || 0;
+    var custom   = document.getElementById('scustom'   + i).value.trim();
+    var pct      = total > 0 ? Math.round((obtained / total) * 100) : 0;
+    var checked  = document.querySelectorAll('#straits' + i + ' .tag-check:checked');
+    var traits   = [];
+    checked.forEach(function(c) { traits.push(c.value); });
+    students.push({ id:i, name:name, gender:gender, pct:pct, custom:custom, traits:traits });
   }
 
-  if (students.length === 0) { alert('Please add at least one student with a name.'); return; }
+  if (!students.length) { alert('Please add at least one student with a name.'); return; }
 
-  const outputEl = document.getElementById('remarks-output');
-  const statsEl  = document.getElementById('stats-strip');
+  var outputEl = document.getElementById('remarks-output');
+  var statsEl  = document.getElementById('stats-strip');
   outputEl.innerHTML = '';
 
-  let totalPct = 0, topPct = 0;
-  const toneLabels = { formal: '🎓 Formal', warm: '🌟 Warm', encouraging: '🚀 Encouraging' };
-  const levelLabel = parseInt(grade) <= 5 ? 'Primary' : 'Secondary';
+  var toneLabels  = { formal:'\uD83C\uDF93 Formal', warm:'\u2B50 Warm', encouraging:'\uD83D\uDE80 Encouraging' };
+  var levelLabel  = level === 'primary' ? 'Primary' : 'Secondary';
+  var totalPct = 0, topPct = 0;
 
-  students.forEach((s, idx) => {
-    const tier = getPerformanceTier(s.pct);
-    const { grade: gradeLabel, label: perfLabel } = getGradeLabel(s.pct);
-    const remark = buildRemark(s.name, s.gender, s.pct, tier, s.custom, s.traits, term, board, grade, tone);
+  students.forEach(function(s, idx) {
+    var tier = getTier(s.pct);
+    var info = getGradeInfo(s.pct);
+    var area = pickRandom(areasByLevel[level]);
     totalPct += s.pct;
     if (s.pct > topPct) topPct = s.pct;
 
-    const box = document.createElement('div');
-    box.className = `remark-box tone-${tone}`;
-    box.style.animationDelay = `${idx * 0.07}s`;
-    box.dataset.sid     = s.id;
-    box.dataset.name    = s.name;
-    box.dataset.gender  = s.gender;
-    box.dataset.pct     = s.pct;
-    box.dataset.tier    = tier;
-    box.dataset.custom  = s.custom;
-    box.dataset.term    = term;
-    box.dataset.board   = board;
-    box.dataset.grade   = grade;
-    box.dataset.tone    = tone;
-    box.dataset.traits  = JSON.stringify(s.traits);
+    var remark = buildRemark(s.name, s.gender, tier, tone, level, area, s.traits, s.custom);
 
-    box.innerHTML = `
-      <div class="remark-meta">
-        <span class="student-name">${s.name}</span>
-        <span class="badge badge-grade">${gradeLabel} — ${s.pct}%</span>
-        <span class="badge badge-perf">${perfLabel}</span>
-        <span class="badge badge-tone-${tone}">${toneLabels[tone]}</span>
-        <span class="badge badge-level">${levelLabel}</span>
-        ${s.rank ? `<span class="badge" style="background:rgba(62,207,142,.1);color:var(--green);border:1px solid rgba(62,207,142,.25);">Rank ${s.rank}</span>` : ''}
-      </div>
-      <div class="remark-text" id="remark-text-${s.id}">${remark}</div>
-      <div class="remark-actions">
-        <button class="btn-copy-remark" onclick="copyRemark(${s.id}, this)">📋 Copy</button>
-        <button class="btn-copy-remark" onclick="regenRemark(this)" style="opacity:.75">↻ Regenerate</button>
-        <button class="btn-copy-remark" onclick="switchTone(this,'formal')" style="opacity:.65">🎓 Formal</button>
-        <button class="btn-copy-remark" onclick="switchTone(this,'warm')" style="opacity:.65">🌟 Warm</button>
-        <button class="btn-copy-remark" onclick="switchTone(this,'encouraging')" style="opacity:.65">🚀 Encouraging</button>
-      </div>
-    `;
+    var box = document.createElement('div');
+    box.className = 'remark-box tone-' + tone;
+    box.style.animationDelay = (idx * 0.06) + 's';
+    box.dataset.name   = s.name;
+    box.dataset.gender = s.gender;
+    box.dataset.tier   = tier;
+    box.dataset.tone   = tone;
+    box.dataset.level  = level;
+    box.dataset.area   = area;
+    box.dataset.traits = JSON.stringify(s.traits);
+    box.dataset.custom = s.custom;
+    box.dataset.sid    = String(s.id);
+
+    box.innerHTML =
+      '<div class="remark-meta">' +
+        '<span class="student-name">' + s.name + '</span>' +
+        '<span class="badge badge-grade">' + info.g + ' \u2014 ' + s.pct + '%</span>' +
+        '<span class="badge badge-perf">' + info.l + '</span>' +
+        '<span class="badge badge-tone-' + tone + '">' + toneLabels[tone] + '</span>' +
+        '<span class="badge badge-level">' + levelLabel + '</span>' +
+      '</div>' +
+      '<div class="remark-text" id="rt' + s.id + '">' + remark + '</div>' +
+      '<div class="remark-actions">' +
+        '<button class="btn-action" onclick="copyRemark(this)">\uD83D\uDCCB Copy</button>' +
+        '<button class="btn-action" onclick="regenRemark(this)">\u21BB Regenerate</button>' +
+        '<button class="btn-action" onclick="switchTone(this,\'formal\')">\uD83C\uDF93 Formal</button>' +
+        '<button class="btn-action" onclick="switchTone(this,\'warm\')">\u2B50 Warm</button>' +
+        '<button class="btn-action" onclick="switchTone(this,\'encouraging\')">\uD83D\uDE80 Encouraging</button>' +
+      '</div>';
+
     outputEl.appendChild(box);
   });
 
-  const avgPct = students.length ? Math.round(totalPct / students.length) : 0;
-  statsEl.innerHTML = `
-    <div class="stat-box"><div class="val">${students.length}</div><div class="lbl">Students</div></div>
-    <div class="stat-box"><div class="val">${avgPct}%</div><div class="lbl">Class Avg</div></div>
-    <div class="stat-box"><div class="val">${topPct}%</div><div class="lbl">Top Score</div></div>
-    <div class="stat-box"><div class="val">${toneLabels[tone]}</div><div class="lbl">Tone</div></div>
-  `;
+  var avg = students.length ? Math.round(totalPct / students.length) : 0;
+  statsEl.innerHTML =
+    '<div class="stat-box"><div class="stat-val">' + students.length + '</div><div class="stat-lbl">Students</div></div>' +
+    '<div class="stat-box"><div class="stat-val">' + avg + '%</div><div class="stat-lbl">Class Avg</div></div>' +
+    '<div class="stat-box"><div class="stat-val">' + topPct + '%</div><div class="stat-lbl">Top Score</div></div>';
 
   document.getElementById('output-section').style.display = 'block';
-  document.getElementById('output-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  buildPrintArea(students, board, grade, term, tone);
+  document.getElementById('output-section').scrollIntoView({ behavior:'smooth', block:'start' });
 }
 
-function copyRemark(id, btn) {
-  const el = document.getElementById(`remark-text-${id}`);
-  if (!el) return;
-  const text = el.innerText || el.textContent;
-  function markCopied() {
-    btn.textContent = '✓ Copied!'; btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = '📋 Copy'; btn.classList.remove('copied'); }, 2000);
-  }
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(text).then(markCopied).catch(() => {
-      const ta = document.createElement('textarea');
-      ta.value = text; ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;';
-      document.body.appendChild(ta); ta.focus(); ta.select();
-      try { document.execCommand('copy'); markCopied(); } catch(e) {}
-      document.body.removeChild(ta);
-    });
-  } else {
-    const ta = document.createElement('textarea');
-    ta.value = text; ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;';
-    document.body.appendChild(ta); ta.focus(); ta.select();
-    try { document.execCommand('copy'); markCopied(); } catch(e) {}
-    document.body.removeChild(ta);
-  }
-}
-
+// ═══════════════════════════════════════════════════
+// REGEN & SWITCH TONE
+// ═══════════════════════════════════════════════════
 function regenRemark(btn) {
-  const box    = btn.closest('.remark-box');
-  const sid    = box.dataset.sid;
-  const traits = JSON.parse(box.dataset.traits || '[]');
-  const remark = buildRemark(box.dataset.name, box.dataset.gender, +box.dataset.pct, box.dataset.tier, box.dataset.custom, traits, box.dataset.term, box.dataset.board, box.dataset.grade, box.dataset.tone);
-  document.getElementById(`remark-text-${sid}`).textContent = remark;
-  btn.textContent = '✓ Done!';
-  setTimeout(() => { btn.textContent = '↻ Regenerate'; }, 1500);
+  var box = btn.closest('.remark-box');
+  var sid = box.dataset.sid;
+  var traits = [];
+  try { traits = JSON.parse(box.dataset.traits || '[]'); } catch(e) {}
+  var remark = buildRemark(box.dataset.name, box.dataset.gender, box.dataset.tier, box.dataset.tone, box.dataset.level, box.dataset.area, traits, box.dataset.custom || '');
+  document.getElementById('rt' + sid).textContent = remark;
+  btn.textContent = '\u2713 Done';
+  setTimeout(function() { btn.textContent = '\u21BB Regenerate'; }, 1500);
 }
 
 function switchTone(btn, newTone) {
-  const box    = btn.closest('.remark-box');
-  const sid    = box.dataset.sid;
-  const traits = JSON.parse(box.dataset.traits || '[]');
+  var box = btn.closest('.remark-box');
+  var sid = box.dataset.sid;
   box.dataset.tone = newTone;
-  box.className = `remark-box tone-${newTone}`;
-  const toneLabels = { formal: '🎓 Formal', warm: '🌟 Warm', encouraging: '🚀 Encouraging' };
-  const toneEl = box.querySelector('.badge-tone-formal, .badge-tone-warm, .badge-tone-encouraging');
-  if (toneEl) { toneEl.className = `badge badge-tone-${newTone}`; toneEl.textContent = toneLabels[newTone]; }
-  const remark = buildRemark(box.dataset.name, box.dataset.gender, +box.dataset.pct, box.dataset.tier, box.dataset.custom, traits, box.dataset.term, box.dataset.board, box.dataset.grade, newTone);
-  document.getElementById(`remark-text-${sid}`).textContent = remark;
+  box.className = 'remark-box tone-' + newTone;
+  var toneLabels = { formal:'\uD83C\uDF93 Formal', warm:'\u2B50 Warm', encouraging:'\uD83D\uDE80 Encouraging' };
+  var tb = box.querySelector('[class*="badge-tone"]');
+  if (tb) { tb.className = 'badge badge-tone-' + newTone; tb.textContent = toneLabels[newTone]; }
+  var traits = [];
+  try { traits = JSON.parse(box.dataset.traits || '[]'); } catch(e) {}
+  var remark = buildRemark(box.dataset.name, box.dataset.gender, box.dataset.tier, newTone, box.dataset.level, box.dataset.area, traits, box.dataset.custom || '');
+  document.getElementById('rt' + sid).textContent = remark;
 }
 
-function copyAll() {
-  const boxes = document.querySelectorAll('.remark-box');
-  const lines = [];
-  boxes.forEach(box => {
-    const name = box.querySelector('.student-name')?.textContent || '';
-    const text = box.querySelector('.remark-text')?.textContent || '';
-    lines.push(`${name}\n${text}`);
-  });
-  const all = lines.join('\n\n---\n\n');
-  const btn = document.querySelector('.btn-row .btn-sm');
-  function markDone() {
-    const orig = btn.textContent;
-    btn.textContent = '✓ All Copied!';
-    setTimeout(() => btn.textContent = orig, 2000);
-  }
-  function fallback() {
-    const ta = document.createElement('textarea');
-    ta.value = all; ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;';
-    document.body.appendChild(ta); ta.focus(); ta.select();
-    try { document.execCommand('copy'); markDone(); } catch(e) {}
-    document.body.removeChild(ta);
-  }
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(all).then(markDone).catch(fallback);
-  } else { fallback(); }
-}
-
-
-function buildPrintArea(students, board, grade, term, tone) {
-  const el = document.getElementById('print-area');
-  el.innerHTML = `
-    <h1 style="font-family:serif;font-size:20px;margin-bottom:4px;">Report Card Remarks — ${board} | Class ${grade} | ${term}</h1>
-    <p style="color:#666;font-size:12px;margin-bottom:20px;">Generated by TechKrystle.com | Tone: ${tone}</p>
-    ${students.map(s => {
-      const { grade: g, label } = getGradeLabel(s.pct);
-      const text = document.getElementById(`remark-text-${s.id}`)?.innerText || '';
-      return `<div class="remark-box" style="margin-bottom:14px"><div class="remark-meta"><span class="student-name">${s.name}</span><span class="badge badge-grade">${g} — ${s.pct}%</span><span class="badge badge-perf">${label}</span></div><div class="remark-text">${text}</div></div>`;
-    }).join('')}
-  `;
-}
-
-// init
+// Init — add first student card on page load
 addStudent();
+
 </script>
 </body>
 </html>
