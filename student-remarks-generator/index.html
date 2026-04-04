@@ -865,14 +865,14 @@ function getGradeLabel(pct) {
   return { grade: 'E', label: 'Needs Improvement' };
 }
 function getPronouns(gender) {
-  if (gender === 'female') return { pronoun: 'her', pronoun_cap: 'She' };
-  if (gender === 'neutral') return { pronoun: 'their', pronoun_cap: 'They' };
-  return { pronoun: 'his', pronoun_cap: 'He' };
+  if (gender === 'female') return { pronoun: 'her', pronoun_cap: 'She', pronoun_sub: 'she', pronoun_obj: 'her', pronoun_ref: 'herself' };
+  if (gender === 'neutral') return { pronoun: 'their', pronoun_cap: 'They', pronoun_sub: 'they', pronoun_obj: 'them', pronoun_ref: 'themselves' };
+  return { pronoun: 'his', pronoun_cap: 'He', pronoun_sub: 'he', pronoun_obj: 'him', pronoun_ref: 'himself' };
 }
 function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
 function buildRemark(name, gender, pct, tier, customNote, traits, term, board, grade, tone) {
-  const { pronoun, pronoun_cap } = getPronouns(gender);
+  const { pronoun, pronoun_cap, pronoun_sub, pronoun_obj, pronoun_ref } = getPronouns(gender);
   const level = getLevel(grade);
   const areas = improvementAreasByLevel[level];
   const area = pickRandom(areas);
@@ -882,12 +882,34 @@ function buildRemark(name, gender, pct, tier, customNote, traits, term, board, g
   remark = remark
     .replace(/{name}/g, name)
     .replace(/{pronoun_cap}/g, pronoun_cap)
+    .replace(/{pronoun_ref}/g, pronoun_ref)
+    .replace(/{pronoun_obj}/g, pronoun_obj)
+    .replace(/{pronoun_sub}/g, pronoun_sub)
     .replace(/{pronoun}/g, pronoun)
     .replace(/{area}/g, area)
     .replace(/{term}/g, term)
     .replace(/{board}/g, board)
     .replace(/{level}/g, level === 'primary' ? 'Primary School' : 'Secondary School')
     .replace(/{grade}/g, `Class ${grade}`);
+
+  // ── Post-process: fix pronoun used as subject before a verb ──
+  // e.g. "his has achieved" → "he has achieved"
+  // e.g. "her is capable"  → "she is capable"
+  // e.g. "his self"        → "himself"  (already handled above via {pronoun_ref})
+  const subjectVerbs = /\b(his|her|their)\b(?='s\s+best|\s+(?:has|have|had|is|are|was|were|will|would|can|could|should|must|might|may|does|do|did|continues|approaches|participates|engages|needs|works|tries|comes|puts|brings|shows|sets|faces|finds|develops|seeks|remains|grows|learns|strives|achieves|excels|produces|performs|appears|seems|becomes|challenges|earns|gives|keeps|keeps|improves|understands|won't|doesn't|isn't))/gi;
+
+  remark = remark.replace(subjectVerbs, (match) => {
+    const m = match.toLowerCase();
+    if (m === 'his') return pronoun_sub;   // he
+    if (m === 'her') return pronoun_sub;   // she
+    if (m === 'their') return pronoun_sub; // they
+    return match;
+  });
+
+  // Fix "his's" / "her's" / "their's" → possessive (remove the extra 's)
+  remark = remark.replace(/\b(his|her|their)'s\b/gi, (match) => {
+    return match.split("'s")[0]; // "his's" → "his", "her's" → "her"
+  });
 
   if (traits.length > 0) {
     const traitsStr = traits.join(', ');
