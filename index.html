@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Free Teacher Tools — TechKrystle</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+  :root { --bg:#0f1117; --card:#1e2334; --border:#2a3050; --accent:#f5a623; --text:#e8eaf0; --muted:#8890aa; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+  .wrapper { max-width:900px; margin:0 auto; padding:60px 20px; }
+  header { text-align:center; margin-bottom:50px; }
+  .brand { font-size:13px; font-weight:700; color:var(--accent); letter-spacing:2px; text-transform:uppercase; margin-bottom:16px; }
+  h1 { font-family:'Playfair Display',serif; font-size:clamp(28px,5vw,44px); margin-bottom:12px; background:linear-gradient(135deg,#f5e6c0,#f5a623,#e05c3a); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+  header p { color:var(--muted); font-size:15px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:18px; }
+  .tool-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:24px; text-decoration:none; color:var(--text); transition:border-color .2s,transform .2s; display:block; }
+  .tool-card:hover { border-color:var(--accent); transform:translateY(-3px); }
+  .tool-icon { font-size:28px; margin-bottom:12px; }
+  .tool-name { font-weight:700; font-size:16px; margin-bottom:6px; }
+  .tool-desc { font-size:13px; color:var(--muted); line-height:1.5; }
+  .badge { display:inline-block; background:rgba(245,166,35,.12); color:var(--accent); border:1px solid rgba(245,166,35,.25); padding:2px 10px; border-radius:99px; font-size:10px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; margin-top:12px; }
+  .coming-soon { opacity:.45; pointer-events:none; }
+  footer { text-align:center; margin-top:60px; color:var(--muted); font-size:13px; }
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <header>
+    <div class="brand">✦ TechKrystle</div>
+    <h1>Free Tools for Teachers</h1>
+    <p>Practical, free AI-powered tools built for Indian classrooms — CBSE, ICSE & State Board.</p>
+  </header>
+  <div class="grid">
+    <a href="/student-remarks-generator" class="tool-card">
+      <div class="tool-icon">📝</div>
+      <div class="tool-name">Student Remarks Generator</div>
+      <div class="tool-desc">Generate personalised report card remarks in seconds. 3 tones, all boards, Class 1–12.</div>
+      <div class="badge">Live</div>
+    </a>
+    <a href="/percentage-calculator" class="tool-card coming-soon">
+      <div class="tool-icon">📊</div>
+      <div class="tool-name">Percentage Calculator</div>
+      <div class="tool-desc">Enter marks and total — get percentage, grade, and CBSE grade point instantly.</div>
+      <div class="badge">Coming Soon</div>
+    </a>
+    <a href="/random-name-picker" class="tool-card coming-soon">
+      <div class="tool-icon">🎲</div>
+      <div class="tool-name">Random Name Picker</div>
+      <div class="tool-desc">Add your class list and pick a student randomly. Great for classroom engagement.</div>
+      <div class="badge">Coming Soon</div>
+    </a>
+    <a href="/attendance-calculator" class="tool-card coming-soon">
+      <div class="tool-icon">📅</div>
+      <div class="tool-name">Attendance Calculator</div>
+      <div class="tool-desc">Calculate attendance percentage and find out how many classes can be missed.</div>
+      <div class="badge">Coming Soon</div>
+    </a>
+    <a href="/cgpa-calculator" class="tool-card coming-soon">
+      <div class="tool-icon">🎓</div>
+      <div class="tool-name">CGPA Calculator</div>
+      <div class="tool-desc">Convert CGPA to percentage, calculate GPA, and predict target scores.</div>
+      <div class="badge">Coming Soon</div>
+    </a>
+    <a href="/lesson-plan-generator" class="tool-card coming-soon">
+      <div class="tool-icon">📚</div>
+      <div class="tool-name">Lesson Plan Generator</div>
+      <div class="tool-desc">Create structured, board-aligned lesson plans with objectives and activities.</div>
+      <div class="badge">Coming Soon</div>
+    </a>
+  </div>
+  <footer>© 2026 TechKrystle.com — Free AI Tools Built for Indian Teachers</footer>
+</div>
+</body>
+</html>
