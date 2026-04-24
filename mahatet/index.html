@@ -67,10 +67,12 @@ body{font-family:"Baloo 2",sans-serif;background:var(--off-white);color:var(--na
 .q-tag.diff-hard{background:#FDECEA;color:var(--danger);}
 .q-text{font-size:15px;font-weight:600;color:var(--navy);line-height:1.5;}
 .q-text-mr{font-family:"Tiro Devanagari Marathi",serif;font-size:13px;color:var(--gray-600);margin-top:4px;line-height:1.6;}
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,32,64,0.6);z-index:200;align-items:flex-end;justify-content:center;}
+
+/* FIX 1: Modal overlay - full screen, scrollable, not bottom-anchored */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,32,64,0.65);z-index:200;align-items:flex-start;justify-content:center;overflow-y:auto;padding:20px 12px 40px;}
 .modal-overlay.open{display:flex;}
-.modal-sheet{background:var(--white);border-radius:24px 24px 0 0;width:100%;max-width:640px;max-height:92vh;overflow-y:auto;padding:24px 20px 40px;animation:slideUp 0.3s ease;}
-@keyframes slideUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
+.modal-sheet{background:var(--white);border-radius:20px;width:100%;max-width:620px;padding:24px 20px 32px;margin:auto;animation:fadeIn 0.2s ease;}
+@keyframes fadeIn{from{opacity:0;transform:scale(0.97);}to{opacity:1;transform:scale(1);}}
 .modal-handle{width:40px;height:4px;background:var(--gray-200);border-radius:2px;margin:0 auto 20px;}
 .modal-q-text{font-size:17px;font-weight:700;color:var(--navy);line-height:1.5;}
 .modal-q-mr{font-family:"Tiro Devanagari Marathi",serif;font-size:14px;color:var(--gray-600);margin-top:6px;line-height:1.7;}
@@ -86,6 +88,7 @@ body{font-family:"Baloo 2",sans-serif;background:var(--off-white);color:var(--na
 .expl-text{font-size:13px;color:rgba(255,255,255,0.85);line-height:1.6;}
 .expl-text-mr{font-family:"Tiro Devanagari Marathi",serif;font-size:13px;color:rgba(255,255,255,0.65);margin-top:6px;line-height:1.7;}
 .modal-close-btn{margin-top:20px;width:100%;padding:15px;background:var(--saffron);border:none;border-radius:var(--radius-sm);color:var(--white);font-family:"Baloo 2",sans-serif;font-size:16px;font-weight:700;cursor:pointer;}
+
 .test-topbar{background:var(--navy);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
 .test-timer{background:var(--saffron);border-radius:10px;padding:6px 14px;font-size:18px;font-weight:800;color:var(--white);font-variant-numeric:tabular-nums;}
 .test-timer.warning{background:var(--danger);animation:pulse 1s infinite;}
@@ -102,11 +105,12 @@ body{font-family:"Baloo 2",sans-serif;background:var(--off-white);color:var(--na
 .test-option.selected{border-color:var(--saffron);background:var(--saffron-light);color:var(--saffron);}
 .opt-letter{width:28px;height:28px;border-radius:50%;background:var(--gray-100);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;transition:all 0.15s;}
 .test-option.selected .opt-letter{background:var(--saffron);color:var(--white);}
+/* FIX 2: test-nav - plain text buttons, no HTML entities */
 .test-nav{position:fixed;bottom:0;left:0;right:0;background:var(--white);padding:12px 16px;display:flex;gap:10px;box-shadow:0 -4px 20px rgba(0,0,0,0.08);z-index:50;}
 .btn-prev{flex:1;padding:13px;border-radius:var(--radius-sm);border:none;font-family:"Baloo 2",sans-serif;font-size:14px;font-weight:700;cursor:pointer;background:var(--gray-100);color:var(--gray-600);}
 .btn-next{flex:1;padding:13px;border-radius:var(--radius-sm);border:none;font-family:"Baloo 2",sans-serif;font-size:14px;font-weight:700;cursor:pointer;background:var(--navy);color:var(--white);}
 .btn-submit{flex:1;padding:13px;border-radius:var(--radius-sm);border:none;font-family:"Baloo 2",sans-serif;font-size:14px;font-weight:700;cursor:pointer;background:var(--green);color:var(--white);}
-.btn-exit{padding:13px 14px;border-radius:var(--radius-sm);border:2px solid #FDECEA;font-family:"Baloo 2",sans-serif;font-size:13px;font-weight:700;cursor:pointer;background:#FDECEA;color:var(--danger);}
+.btn-exit{padding:13px 14px;border-radius:var(--radius-sm);border:2px solid #FDECEA;font-family:"Baloo 2",sans-serif;font-size:13px;font-weight:700;cursor:pointer;background:#FDECEA;color:var(--danger);white-space:nowrap;}
 .q-palette-btn{position:fixed;bottom:72px;right:16px;background:var(--navy);color:var(--white);border:none;border-radius:50%;width:44px;height:44px;font-size:18px;cursor:pointer;box-shadow:var(--shadow-lg);z-index:51;}
 .result-hero{background:var(--navy);padding:40px 20px 50px;text-align:center;}
 .result-circle{width:130px;height:130px;border-radius:50%;border:6px solid var(--saffron);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 20px;background:rgba(255,255,255,0.06);}
@@ -131,6 +135,7 @@ body{font-family:"Baloo 2",sans-serif;background:var(--off-white);color:var(--na
 .result-btn.primary{background:var(--saffron);color:var(--white);}
 .result-btn.secondary{background:var(--gray-100);color:var(--navy);}
 .result-btn.pdf{background:var(--navy);color:var(--white);}
+.result-btn.review{background:var(--green);color:var(--white);}
 .tracker-overall{background:var(--navy);border-radius:var(--radius);padding:24px 20px;margin:16px 20px;display:flex;gap:20px;align-items:center;}
 .tracker-big{text-align:center;}
 .tracker-big-num{font-size:42px;font-weight:800;color:var(--saffron);line-height:1;}
@@ -183,7 +188,6 @@ body{font-family:"Baloo 2",sans-serif;background:var(--off-white);color:var(--na
 .palette-dot.answered{background:var(--saffron-light);border-color:var(--saffron);color:var(--saffron);}
 .palette-dot.current{background:var(--saffron);color:var(--white);}
 .palette-close{width:100%;padding:14px;margin-top:16px;background:var(--navy);color:var(--white);border:none;border-radius:var(--radius-sm);font-family:"Baloo 2",sans-serif;font-size:15px;font-weight:700;cursor:pointer;}
-/* EXIT MODAL */
 .exit-modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,32,64,0.7);z-index:400;align-items:center;justify-content:center;padding:20px;}
 .exit-modal-overlay.open{display:flex;}
 .exit-modal{background:var(--white);border-radius:var(--radius);padding:28px 24px;width:100%;max-width:360px;text-align:center;}
@@ -197,6 +201,21 @@ body{font-family:"Baloo 2",sans-serif;background:var(--off-white);color:var(--na
 .exit-btn-save{width:100%;padding:14px;background:var(--green);border:none;border-radius:var(--radius-sm);font-family:"Baloo 2",sans-serif;font-size:15px;font-weight:700;cursor:pointer;color:var(--white);}
 .exit-btn-discard{width:100%;padding:14px;background:#FDECEA;border:none;border-radius:var(--radius-sm);font-family:"Baloo 2",sans-serif;font-size:15px;font-weight:700;cursor:pointer;color:var(--danger);}
 .exit-btn-continue{width:100%;padding:14px;background:var(--gray-100);border:none;border-radius:var(--radius-sm);font-family:"Baloo 2",sans-serif;font-size:15px;font-weight:700;cursor:pointer;color:var(--navy);}
+/* FIX 3: Answer Review screen */
+.review-item{background:var(--white);border-radius:var(--radius);padding:18px;margin-bottom:14px;box-shadow:var(--shadow);border-left:5px solid var(--gray-200);}
+.review-item.correct{border-left-color:var(--green);}
+.review-item.wrong{border-left-color:var(--danger);}
+.review-item.skipped{border-left-color:var(--gray-400);}
+.review-q-num{font-size:11px;font-weight:700;color:var(--gray-400);text-transform:uppercase;margin-bottom:6px;}
+.review-q-text{font-size:14px;font-weight:600;color:var(--navy);line-height:1.5;margin-bottom:12px;}
+.review-opts{display:grid;gap:6px;}
+.review-opt{padding:10px 14px;border-radius:8px;font-size:13px;font-weight:500;border:2px solid var(--gray-200);background:var(--gray-100);color:var(--gray-600);}
+.review-opt.correct-ans{border-color:var(--green);background:var(--green-light);color:var(--green);font-weight:700;}
+.review-opt.your-wrong{border-color:var(--danger);background:#FDECEA;color:var(--danger);}
+.review-expl{margin-top:10px;padding:10px 12px;background:var(--navy);border-radius:8px;font-size:12px;color:rgba(255,255,255,0.85);line-height:1.6;}
+.review-filter-bar{display:flex;gap:8px;padding:12px 20px;overflow-x:auto;}
+.review-filter{padding:7px 14px;border-radius:20px;border:2px solid var(--gray-200);background:var(--white);cursor:pointer;font-size:12px;font-weight:600;color:var(--gray-600);font-family:"Baloo 2",sans-serif;white-space:nowrap;}
+.review-filter.active{background:var(--navy);border-color:var(--navy);color:var(--white);}
 .empty-state{text-align:center;padding:60px 20px;color:var(--gray-400);}
 .empty-state .es-icon{font-size:48px;margin-bottom:12px;}
 </style>
@@ -207,12 +226,12 @@ body{font-family:"Baloo 2",sans-serif;background:var(--off-white);color:var(--na
 <div id="screen-home" class="screen active">
   <div class="topbar">
     <div class="topbar-logo">MAHA<span>TET</span> Prep</div>
-    <button class="lang-toggle" onclick="toggleLang()">&#127470;&#127475; मराठी</button>
+    <button class="lang-toggle" onclick="toggleLang()">IN मराठी</button>
   </div>
   <div class="home-hero">
     <div class="hero-badge">&#128218; Maharashtra TET 2025</div>
     <h1 class="hero-title">Crack <span>MAHA-TET</span><br>with confidence</h1>
-    <p class="hero-sub">Practice 500 questions, take timed mock tests, download results — all free.</p>
+    <p class="hero-sub">500 questions, timed mock tests, answer review, PDF results — all free.</p>
     <div class="hero-stats">
       <div class="hero-stat"><div class="hero-stat-num">500</div><div class="hero-stat-label">Questions</div></div>
       <div class="hero-stat"><div class="hero-stat-num">5</div><div class="hero-stat-label">Subjects</div></div>
@@ -227,17 +246,17 @@ body{font-family:"Baloo 2",sans-serif;background:var(--off-white);color:var(--na
     <div class="home-card" onclick="showScreen('screen-qbank')">
       <div class="card-icon orange">&#128221;</div>
       <div class="card-info"><div class="card-title">Question Bank</div><div class="card-sub">500 questions with explanations</div></div>
-      <div class="card-arrow">&#8250;</div>
+      <div class="card-arrow">›</div>
     </div>
     <div class="home-card" onclick="showScreen('screen-setup')">
       <div class="card-icon green">&#9201;</div>
-      <div class="card-info"><div class="card-title">Mock Test</div><div class="card-sub">Timed test • Exit & save anytime</div></div>
-      <div class="card-arrow">&#8250;</div>
+      <div class="card-info"><div class="card-title">Mock Test</div><div class="card-sub">Timed test • Exit and save anytime</div></div>
+      <div class="card-arrow">›</div>
     </div>
     <div class="home-card" onclick="showScreen('screen-tracker')">
       <div class="card-icon gold">&#128202;</div>
-      <div class="card-info"><div class="card-title">Score Tracker</div><div class="card-sub">History, analysis & PDF download</div></div>
-      <div class="card-arrow">&#8250;</div>
+      <div class="card-info"><div class="card-title">Score Tracker</div><div class="card-sub">History, analysis and PDF download</div></div>
+      <div class="card-arrow">›</div>
     </div>
   </div>
   <div class="bottom-nav">
@@ -251,9 +270,9 @@ body{font-family:"Baloo 2",sans-serif;background:var(--off-white);color:var(--na
 <!-- QUESTION BANK -->
 <div id="screen-qbank" class="screen">
   <div class="topbar">
-    <button onclick="showScreen('screen-home')" style="background:none;border:none;color:#fff;font-size:22px;cursor:pointer;">&#8249;</button>
+    <button onclick="showScreen('screen-home')" style="background:none;border:none;color:#fff;font-size:22px;cursor:pointer;">‹</button>
     <div class="topbar-logo">Question <span>Bank</span></div>
-    <button class="lang-toggle" onclick="toggleLang()">&#127470;&#127475;</button>
+    <button class="lang-toggle" onclick="toggleLang()">IN</button>
   </div>
   <div class="subject-pills" id="subject-pills">
     <button class="subject-pill active" onclick="filterSubject('all',this)">All</button>
@@ -273,16 +292,16 @@ body{font-family:"Baloo 2",sans-serif;background:var(--off-white);color:var(--na
   </div>
 </div>
 
-<!-- MOCK TEST SETUP -->
+<!-- SETUP -->
 <div id="screen-setup" class="screen">
   <div class="topbar">
-    <button onclick="showScreen('screen-home')" style="background:none;border:none;color:#fff;font-size:22px;cursor:pointer;">&#8249;</button>
+    <button onclick="showScreen('screen-home')" style="background:none;border:none;color:#fff;font-size:22px;cursor:pointer;">‹</button>
     <div class="topbar-logo">Mock <span>Test</span></div>
     <div style="width:40px"></div>
   </div>
   <div class="setup-screen">
     <h2 class="setup-title">Configure Your Test</h2>
-    <p class="setup-sub">Choose paper, number of questions and start</p>
+    <p class="setup-sub">Choose paper and number of questions</p>
     <div class="setup-card">
       <div class="setup-card-title">Paper Type</div>
       <div class="paper-options">
@@ -298,17 +317,17 @@ body{font-family:"Baloo 2",sans-serif;background:var(--off-white);color:var(--na
         <div class="qcount-opt" onclick="selectQCount(100,this)"><div class="qcount-opt-num">100</div><div class="qcount-opt-label">Full</div></div>
       </div>
     </div>
-    <div class="setup-card" id="test-details-card">
+    <div class="setup-card">
       <div class="setup-card-title">Test Details</div>
       <div style="display:grid;gap:10px">
         <div style="display:flex;justify-content:space-between;font-size:14px"><span>Questions</span><strong id="detail-q">50</strong></div>
         <div style="display:flex;justify-content:space-between;font-size:14px"><span>Duration</span><strong id="detail-time">50 minutes</strong></div>
         <div style="display:flex;justify-content:space-between;font-size:14px"><span>Pass Mark</span><strong id="detail-pass">60% (30/50)</strong></div>
-        <div style="display:flex;justify-content:space-between;font-size:14px"><span>Early Exit</span><strong style="color:var(--green)">&#10003; Save &amp; exit anytime</strong></div>
-        <div style="display:flex;justify-content:space-between;font-size:14px"><span>PDF Download</span><strong style="color:var(--green)">&#10003; After test</strong></div>
+        <div style="display:flex;justify-content:space-between;font-size:14px"><span>Early Exit</span><strong style="color:var(--green)">Save and exit anytime</strong></div>
+        <div style="display:flex;justify-content:space-between;font-size:14px"><span>After Test</span><strong style="color:var(--green)">Review answers + PDF</strong></div>
       </div>
     </div>
-    <button class="start-test-btn" onclick="startMockTest()">&#128640; Start Mock Test</button>
+    <button class="start-test-btn" onclick="startMockTest()">Start Mock Test</button>
   </div>
   <div class="bottom-nav">
     <button class="nav-item" onclick="showScreen('screen-home')"><span class="nav-icon">&#127968;</span><span class="nav-label">Home</span></button>
@@ -321,9 +340,7 @@ body{font-family:"Baloo 2",sans-serif;background:var(--off-white);color:var(--na
 <!-- MOCK TEST -->
 <div id="screen-test" class="screen">
   <div class="test-topbar">
-    <div style="display:flex;align-items:center;gap:10px">
-      <div style="color:rgba(255,255,255,0.7);font-size:13px" id="test-paper-label">Paper I</div>
-    </div>
+    <div style="color:rgba(255,255,255,0.7);font-size:13px" id="test-paper-label">Paper I</div>
     <div class="test-timer" id="test-timer">50:00</div>
     <div style="color:rgba(255,255,255,0.7);font-size:13px" id="test-q-counter">1/50</div>
   </div>
@@ -335,11 +352,11 @@ body{font-family:"Baloo 2",sans-serif;background:var(--off-white);color:var(--na
     <div class="test-options" id="test-options"></div>
   </div>
   <div class="test-nav">
-    <button class="btn-exit" onclick="openExitModal()" title="Exit test">&#128682; Exit</button>
-    <button class="btn-prev" onclick="testNav(-1)">&#8249; Prev</button>
-    <button class="btn-next" id="btn-next-submit" onclick="testNavOrSubmit()">Next &#8250;</button>
+    <button class="btn-exit" onclick="openExitModal()">Exit</button>
+    <button class="btn-prev" onclick="testNav(-1)">Prev</button>
+    <button class="btn-next" id="btn-next-submit" onclick="testNavOrSubmit()">Next</button>
   </div>
-  <button class="q-palette-btn" onclick="openPalette()" title="Question list">&#9776;</button>
+  <button class="q-palette-btn" onclick="openPalette()">&#9776;</button>
 </div>
 
 <!-- RESULT -->
@@ -360,6 +377,7 @@ body{font-family:"Baloo 2",sans-serif;background:var(--off-white);color:var(--na
     <div id="subj-breakdown-list"></div>
   </div>
   <div class="result-btns">
+    <button class="result-btn review" onclick="showScreen('screen-review')">&#128270; Review Answers with Correct Answers</button>
     <button class="result-btn pdf" onclick="downloadPDF()">&#128196; Download PDF Report</button>
     <button class="result-btn primary" onclick="showScreen('screen-setup')">&#128260; Try Another Test</button>
     <button class="result-btn secondary" onclick="showScreen('screen-tracker')">&#128202; View All Scores</button>
@@ -367,10 +385,27 @@ body{font-family:"Baloo 2",sans-serif;background:var(--off-white);color:var(--na
   </div>
 </div>
 
+<!-- ANSWER REVIEW SCREEN -->
+<div id="screen-review" class="screen">
+  <div class="topbar">
+    <button onclick="showScreen('screen-result')" style="background:none;border:none;color:#fff;font-size:22px;cursor:pointer;">‹</button>
+    <div class="topbar-logo">Answer <span>Review</span></div>
+    <button onclick="downloadPDF()" style="background:none;border:none;color:var(--saffron);font-size:12px;font-weight:700;cursor:pointer;font-family:'Baloo 2',sans-serif;">PDF</button>
+  </div>
+  <div class="review-filter-bar">
+    <button class="review-filter active" onclick="filterReview('all',this)">All</button>
+    <button class="review-filter" onclick="filterReview('correct',this)">Correct</button>
+    <button class="review-filter" onclick="filterReview('wrong',this)">Wrong</button>
+    <button class="review-filter" onclick="filterReview('skipped',this)">Skipped</button>
+  </div>
+  <div id="review-stats" style="padding:6px 20px 4px;font-size:13px;color:var(--gray-400)"></div>
+  <div id="review-list" style="padding:8px 20px 40px;"></div>
+</div>
+
 <!-- SCORE TRACKER -->
 <div id="screen-tracker" class="screen">
   <div class="topbar">
-    <button onclick="showScreen('screen-home')" style="background:none;border:none;color:#fff;font-size:22px;cursor:pointer;">&#8249;</button>
+    <button onclick="showScreen('screen-home')" style="background:none;border:none;color:#fff;font-size:22px;cursor:pointer;">‹</button>
     <div class="topbar-logo">Score <span>Tracker</span></div>
     <button onclick="clearHistory()" style="background:none;border:none;color:rgba(255,255,255,0.5);font-size:13px;cursor:pointer">Clear</button>
   </div>
@@ -385,9 +420,9 @@ body{font-family:"Baloo 2",sans-serif;background:var(--off-white);color:var(--na
   </div>
 </div>
 
-<!-- QUESTION MODAL -->
-<div class="modal-overlay" id="q-modal">
-  <div class="modal-sheet">
+<!-- QUESTION MODAL (full-screen centered, scrollable) -->
+<div class="modal-overlay" id="q-modal" onclick="handleModalClick(event)">
+  <div class="modal-sheet" id="modal-sheet-inner">
     <div class="modal-handle"></div>
     <div class="q-meta" id="modal-meta"></div>
     <div class="modal-q-text" id="modal-q-text"></div>
@@ -407,7 +442,7 @@ body{font-family:"Baloo 2",sans-serif;background:var(--off-white);color:var(--na
   <div class="palette-sheet">
     <div style="font-size:15px;font-weight:700;color:var(--navy)">Question Navigator</div>
     <div style="display:flex;gap:16px;margin-top:8px;font-size:12px;color:var(--gray-400)">
-      <span>&#11036; Not answered</span><span style="color:var(--saffron)">&#9635; Answered</span>
+      <span>&#11036; Unanswered</span><span style="color:var(--saffron)">&#9635; Answered</span>
     </div>
     <div class="palette-grid" id="palette-grid"></div>
     <button class="palette-close" onclick="closePalette()">Close</button>
@@ -417,17 +452,17 @@ body{font-family:"Baloo 2",sans-serif;background:var(--off-white);color:var(--na
 <!-- EXIT MODAL -->
 <div class="exit-modal-overlay" id="exit-modal">
   <div class="exit-modal">
-    <h3>&#9888; Exit Test?</h3>
-    <p>You can save your current progress and come back to review it, or discard and exit.</p>
+    <h3>Exit Test?</h3>
+    <p>Save your current progress and see partial results, or exit without saving.</p>
     <div class="exit-modal-stats">
       <div class="exit-stat"><div class="exit-stat-num" id="exit-answered">0</div><div class="exit-stat-label">Answered</div></div>
       <div class="exit-stat"><div class="exit-stat-num" id="exit-remaining">0</div><div class="exit-stat-label">Remaining</div></div>
       <div class="exit-stat"><div class="exit-stat-num" id="exit-time">0m</div><div class="exit-stat-label">Elapsed</div></div>
     </div>
     <div class="exit-btns">
-      <button class="exit-btn-save" onclick="exitAndSave()">&#128190; Save &amp; See Results</button>
-      <button class="exit-btn-discard" onclick="exitAndDiscard()">&#128465; Exit Without Saving</button>
-      <button class="exit-btn-continue" onclick="closeExitModal()">&#9654; Continue Test</button>
+      <button class="exit-btn-save" onclick="exitAndSave()">Save and See Results</button>
+      <button class="exit-btn-discard" onclick="exitAndDiscard()">Exit Without Saving</button>
+      <button class="exit-btn-continue" onclick="closeExitModal()">Continue Test</button>
     </div>
   </div>
 </div>
@@ -443,10 +478,11 @@ var selectedPaper=1;
 var mockTest={questions:[],answers:{},current:0,paper:1,timer:null,seconds:3000,started:false,startTime:0};
 var testHistory=JSON.parse(localStorage.getItem("mahatet_history")||"[]");
 var lastResult=null;
+var reviewFilter="all";
 
 function toggleLang(){
   currentLang=currentLang==="en"?"mr":"en";
-  document.querySelectorAll(".lang-toggle").forEach(function(b){b.textContent=currentLang==="en"?"🇮🇳 मराठी":"🇬🇧 English";});
+  document.querySelectorAll(".lang-toggle").forEach(function(b){b.textContent=currentLang==="en"?"IN मराठी":"EN English";});
   renderQBank();
 }
 
@@ -459,6 +495,7 @@ function showScreen(id){
   if(id==="screen-qbank")renderQBank();
   if(id==="screen-home")renderHomeBanner();
   if(id==="screen-tracker")renderTracker();
+  if(id==="screen-review")renderReview(reviewFilter);
   window.scrollTo(0,0);
 }
 
@@ -485,7 +522,7 @@ function renderQBank(){
     var ans=practiceAnswered[q.id]!==undefined;
     var cor=ans&&practiceAnswered[q.id]===q.ans;
     var cls=ans?(cor?"answered-correct":"answered-wrong"):"";
-    var tag=ans?('<span class="q-tag" style="background:'+(cor?'var(--green-light)':'#FDECEA')+';color:'+(cor?'var(--green)':'var(--danger)')+';">'+(cor?'&#10003; Correct':'&#10007; Wrong')+'</span>'):"";
+    var tag=ans?('<span class="q-tag" style="background:'+(cor?'var(--green-light)':'#FDECEA')+';color:'+(cor?'var(--green)':'var(--danger)')+';">'+(cor?"Correct":"Wrong")+'</span>'):"";
     return'<div class="q-card '+cls+'" onclick="openModal('+q.id+')">'
       +'<div class="q-meta"><span class="q-tag subj">'+q.subject+'</span><span class="q-tag diff-'+q.diff+'">'+q.diff.charAt(0).toUpperCase()+q.diff.slice(1)+'</span>'+tag+'</div>'
       +'<div class="q-text">'+(currentLang==="mr"?q.qMr:q.q)+'</div>'
@@ -494,6 +531,10 @@ function renderQBank(){
   }).join("");
 }
 
+/* FIX 1: Modal - click backdrop to close, inner card stops propagation */
+function handleModalClick(e){
+  if(e.target===document.getElementById("q-modal"))closeModal();
+}
 function openModal(qId){
   var q=QUESTIONS.find(function(x){return x.id===qId;});
   document.getElementById("modal-meta").innerHTML='<span class="q-tag subj">'+q.subject+'</span><span class="q-tag diff-'+q.diff+'">'+q.diff.charAt(0).toUpperCase()+q.diff.slice(1)+'</span>';
@@ -513,6 +554,8 @@ function openModal(qId){
     expl.classList.add("show");
   }else{expl.classList.remove("show");}
   document.getElementById("q-modal").classList.add("open");
+  /* scroll modal to top */
+  document.getElementById("q-modal").scrollTop=0;
 }
 
 function answerModal(qId,idx){
@@ -525,7 +568,6 @@ function answerModal(qId,idx){
   document.getElementById("modal-expl").classList.add("show");
   renderQBank();
 }
-
 function closeModal(){document.getElementById("q-modal").classList.remove("open");}
 
 function selectPaper(p,el){
@@ -543,10 +585,9 @@ function selectQCount(n,el){
 
 function updateTestDetails(){
   var n=selectedQCount;
-  var mins=n;
   var pass=Math.ceil(n*0.6);
   document.getElementById("detail-q").textContent=n;
-  document.getElementById("detail-time").textContent=mins+" minutes";
+  document.getElementById("detail-time").textContent=n+" minutes";
   document.getElementById("detail-pass").textContent="60% ("+pass+"/"+n+")";
 }
 
@@ -593,7 +634,8 @@ function renderTestQuestion(){
   }).join("");
   var isLast=curr===total-1;
   var btn=document.getElementById("btn-next-submit");
-  btn.textContent=isLast?"Submit &#10003;":"Next &#8250;";
+  /* FIX 2: plain text, no HTML entities */
+  btn.textContent=isLast?"Submit":"Next";
   btn.className=isLast?"btn-submit":"btn-next";
   renderPaletteGrid();
 }
@@ -614,13 +656,11 @@ function testNav(dir){
   mockTest.current=next;
   renderTestQuestion();
 }
-
 function testNavOrSubmit(){
   if(mockTest.current===mockTest.questions.length-1)submitTest(false);
   else testNav(1);
 }
 
-// EXIT MODAL
 function openExitModal(){
   var answered=Object.keys(mockTest.answers).length;
   var remaining=mockTest.questions.length-answered;
@@ -630,20 +670,9 @@ function openExitModal(){
   document.getElementById("exit-time").textContent=Math.floor(elapsed/60)+"m"+(elapsed%60)+"s";
   document.getElementById("exit-modal").classList.add("open");
 }
-
 function closeExitModal(){document.getElementById("exit-modal").classList.remove("open");}
-
-function exitAndSave(){
-  document.getElementById("exit-modal").classList.remove("open");
-  submitTest(true);
-}
-
-function exitAndDiscard(){
-  document.getElementById("exit-modal").classList.remove("open");
-  clearInterval(mockTest.timer);
-  mockTest.started=false;
-  showScreen("screen-setup");
-}
+function exitAndSave(){document.getElementById("exit-modal").classList.remove("open");submitTest(true);}
+function exitAndDiscard(){document.getElementById("exit-modal").classList.remove("open");clearInterval(mockTest.timer);mockTest.started=false;showScreen("screen-setup");}
 
 function submitTest(earlyExit){
   clearInterval(mockTest.timer);
@@ -687,52 +716,124 @@ function renderResult(r){
   }).join("");
 }
 
-// PDF DOWNLOAD
+/* FIX 3: Answer Review */
+function filterReview(f,btn){
+  reviewFilter=f;
+  document.querySelectorAll(".review-filter").forEach(function(b){b.classList.remove("active");});
+  btn.classList.add("active");
+  renderReview(f);
+}
+
+function renderReview(filter){
+  if(!mockTest.questions.length){
+    document.getElementById("review-list").innerHTML='<div class="empty-state"><div class="es-icon">&#128203;</div><p>No test data. Take a mock test first.</p></div>';
+    return;
+  }
+  var items=mockTest.questions.map(function(q,i){
+    var userAns=mockTest.answers[i];
+    var status=userAns===undefined?"skipped":(userAns===q.ans?"correct":"wrong");
+    return{q:q,i:i,userAns:userAns,status:status};
+  });
+  if(filter!=="all")items=items.filter(function(x){return x.status===filter;});
+  var total=mockTest.questions.length;
+  var cor=mockTest.questions.filter(function(q,i){return mockTest.answers[i]===q.ans;}).length;
+  var wrg=mockTest.questions.filter(function(q,i){return mockTest.answers[i]!==undefined&&mockTest.answers[i]!==q.ans;}).length;
+  var skp=mockTest.questions.filter(function(q,i){return mockTest.answers[i]===undefined;}).length;
+  document.getElementById("review-stats").textContent="Showing "+items.length+" of "+total+" questions — Correct: "+cor+" | Wrong: "+wrg+" | Skipped: "+skp;
+  if(!items.length){document.getElementById("review-list").innerHTML='<div class="empty-state"><div class="es-icon">&#128515;</div><p>No questions in this category!</p></div>';return;}
+  var opts_labels=["A","B","C","D"];
+  document.getElementById("review-list").innerHTML=items.map(function(item){
+    var q=item.q;
+    var opts=q.opts;
+    var optsHtml=opts.map(function(o,oi){
+      var cls="review-opt";
+      if(oi===q.ans)cls+=" correct-ans";
+      else if(item.userAns===oi)cls+=" your-wrong";
+      var label=opts_labels[oi]+". ";
+      if(oi===q.ans)label+="(Correct) ";
+      if(item.userAns===oi&&oi!==q.ans)label+="(Your answer) ";
+      return'<div class="'+cls+'">'+label+o+'</div>';
+    }).join("");
+    var statusIcon=item.status==="correct"?"green":item.status==="wrong"?"wrong":"skipped";
+    var statusText=item.status==="correct"?"Correct":"missed"===item.status?"Skipped":item.status==="wrong"?"Wrong":"Skipped";
+    return'<div class="review-item '+item.status+'">'
+      +'<div class="review-q-num">Q'+(item.i+1)+' &nbsp;|&nbsp; '+q.subject+' &nbsp;|&nbsp; '+q.diff+'</div>'
+      +'<div class="review-q-text">'+q.q+'</div>'
+      +'<div class="review-opts">'+optsHtml+'</div>'
+      +'<div class="review-expl"><strong>Explanation:</strong> '+q.expl+'</div>'
+      +'</div>';
+  }).join("");
+}
+
+/* PDF DOWNLOAD — includes answer key table */
 function downloadPDF(){
-  if(!lastResult){alert("No result to download.");return;}
+  if(!lastResult){alert("No result to download. Please complete a test first.");return;}
   var r=lastResult;
   var subRows="";
   Object.keys(r.subjectScores).forEach(function(s){
     if(r.subjectScores[s]!==null){
+      var pct=r.subjectScores[s];
       var bar="";
-      for(var i=0;i<20;i++)bar+=i<Math.round(r.subjectScores[s]/5)?"&#9608;":"&#9617;";
-      subRows+="<tr><td>"+s+"</td><td>"+bar+"</td><td><b>"+r.subjectScores[s]+"%</b></td></tr>";
+      for(var i=0;i<20;i++)bar+=i<Math.round(pct/5)?"||":".";
+      subRows+="<tr><td>"+s+"</td><td style='font-family:monospace;letter-spacing:1px;color:#FF6B00'>"+bar+"</td><td><b>"+pct+"%</b></td></tr>";
     }
   });
-  var status=r.earlyExit?"Early Exit":r.pass?"PASSED":"NOT PASSED";
-  var statusColor=r.earlyExit?"#B07B00":r.pass?"#1A7A4A":"#D0021B";
-  var html='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>MAHA-TET Result</title>'
-    +'<style>body{font-family:Arial,sans-serif;margin:0;padding:24px;color:#0F2040;max-width:700px;margin:0 auto;}'
-    +'.header{background:#0F2040;color:white;padding:24px;border-radius:12px;margin-bottom:24px;text-align:center;}'
-    +'.header h1{margin:0;font-size:24px;} .header p{margin:4px 0 0;opacity:0.7;font-size:14px;}'
-    +'.score-box{text-align:center;margin:24px 0;}'
-    +'.score-circle{display:inline-block;width:120px;height:120px;border-radius:50%;border:6px solid #FF6B00;line-height:108px;font-size:34px;font-weight:800;color:#0F2040;}'
-    +'.status{font-size:20px;font-weight:800;color:'+statusColor+';margin:12px 0 4px;}'
-    +'.stats{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px;margin:20px 0;}'
-    +'.stat{background:#F5F0EB;border-radius:10px;padding:14px;text-align:center;}'
-    +'.stat-num{font-size:26px;font-weight:800;} .stat-label{font-size:11px;color:#9E8E80;margin-top:2px;}'
-    +'table{width:100%;border-collapse:collapse;margin-top:16px;}'
-    +'th{background:#0F2040;color:white;padding:10px;text-align:left;font-size:13px;}'
-    +'td{padding:10px;border-bottom:1px solid #E8E0D8;font-size:13px;}'
-    +'.footer{margin-top:32px;text-align:center;font-size:12px;color:#9E8E80;border-top:1px solid #E8E0D8;padding-top:16px;}'
-    +'@media print{body{padding:12px;}}'
-    +'</style></head><body>'
-    +'<div class="header"><h1>MAHA-TET Practice Test — Result Report</h1><p>Generated on '+new Date().toLocaleDateString("en-IN")+'</p></div>'
-    +'<div class="score-box"><div class="score-circle">'+r.pct+'%</div><div class="status">'+status+'</div>'
-    +'<div style="font-size:13px;color:#5C4F44">Paper '+(r.paper===1?"I":"II")+' &nbsp;|&nbsp; '+r.total+' Questions &nbsp;|&nbsp; Date: '+r.date+'</div></div>'
-    +'<div class="stats">'
-    +'<div class="stat"><div class="stat-num" style="color:#1A7A4A">'+r.correct+'</div><div class="stat-label">CORRECT</div></div>'
-    +'<div class="stat"><div class="stat-num" style="color:#D0021B">'+r.wrong+'</div><div class="stat-label">WRONG</div></div>'
-    +'<div class="stat"><div class="stat-num" style="color:#9E8E80">'+r.unanswered+'</div><div class="stat-label">UNANSWERED</div></div>'
-    +'<div class="stat"><div class="stat-num">'+Math.floor(r.timeUsed/60)+'m</div><div class="stat-label">TIME USED</div></div>'
-    +'</div>'
-    +'<table><thead><tr><th>Subject</th><th>Progress</th><th>Score</th></tr></thead><tbody>'+subRows+'</tbody></table>'
-    +'<div class="footer">MAHA-TET Prep App &nbsp;|&nbsp; techkrystle.com &nbsp;|&nbsp; Free Practice Tool</div>'
-    +'</body></html>';
+  /* Answer key table */
+  var ansRows="";
+  mockTest.questions.forEach(function(q,i){
+    var userAns=mockTest.answers[i];
+    var correct=userAns===q.ans;
+    var skipped=userAns===undefined;
+    var status=skipped?"Skipped":correct?"Correct":"Wrong";
+    var statusColor=skipped?"#9E8E80":correct?"#1A7A4A":"#D0021B";
+    var correctOpt=["A","B","C","D"][q.ans]+". "+q.opts[q.ans];
+    var yourOpt=skipped?"—":["A","B","C","D"][userAns]+". "+q.opts[userAns];
+    ansRows+="<tr style='background:"+(i%2===0?"#F9F9F9":"#FFFFFF")+";'>"
+      +"<td style='width:30px;text-align:center'>"+(i+1)+"</td>"
+      +"<td style='max-width:300px'>"+q.q+"</td>"
+      +"<td style='color:#1A7A4A;font-size:12px'>"+correctOpt+"</td>"
+      +"<td style='color:"+statusColor+";font-size:12px'>"+yourOpt+"</td>"
+      +"<td style='color:"+statusColor+";font-weight:700;text-align:center'>"+status+"</td>"
+      +"</tr>";
+  });
+  var status=r.earlyExit?"Early Exit":(r.pass?"PASSED":"NOT PASSED");
+  var statusColor=r.earlyExit?"#B07B00":(r.pass?"#1A7A4A":"#D0021B");
+  var html="<!DOCTYPE html><html><head><meta charset='UTF-8'><title>MAHA-TET Result Report</title>"
+    +"<style>body{font-family:Arial,sans-serif;margin:0;padding:20px;color:#0F2040;max-width:900px;margin:0 auto;}"
+    +".header{background:#0F2040;color:white;padding:20px 24px;border-radius:12px;margin-bottom:20px;text-align:center;}"
+    +".header h1{margin:0;font-size:22px;} .header p{margin:4px 0 0;opacity:0.7;font-size:13px;}"
+    +".score-box{text-align:center;margin:20px 0;}"
+    +".score-circle{display:inline-block;width:110px;height:110px;border-radius:50%;border:6px solid #FF6B00;line-height:98px;font-size:30px;font-weight:800;color:#0F2040;}"
+    +".status{font-size:20px;font-weight:800;color:"+statusColor+";margin:10px 0 4px;}"
+    +".stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0;}"
+    +".stat{background:#F5F0EB;border-radius:8px;padding:12px;text-align:center;}"
+    +".stat-num{font-size:24px;font-weight:800;} .stat-label{font-size:10px;color:#9E8E80;margin-top:2px;}"
+    +"h2{font-size:16px;color:#0F2040;border-bottom:2px solid #FF6B00;padding-bottom:6px;margin:24px 0 12px;}"
+    +"table{width:100%;border-collapse:collapse;font-size:13px;}"
+    +"th{background:#0F2040;color:white;padding:10px 8px;text-align:left;}"
+    +"td{padding:8px;border-bottom:1px solid #E8E0D8;vertical-align:top;}"
+    +".footer{margin-top:28px;text-align:center;font-size:11px;color:#9E8E80;border-top:1px solid #E8E0D8;padding-top:14px;}"
+    +"@media print{body{padding:8px;} .no-print{display:none;}}"
+    +"</style></head><body>"
+    +"<div class='header'><h1>MAHA-TET Practice Test — Result Report</h1><p>Generated on "+new Date().toLocaleDateString("en-IN")+" | techkrystle.com</p></div>"
+    +"<div class='score-box'><div class='score-circle'>"+r.pct+"%</div><div class='status'>"+status+"</div>"
+    +"<div style='font-size:13px;color:#5C4F44'>Paper "+(r.paper===1?"I":"II")+" &nbsp;|&nbsp; "+r.total+" Questions &nbsp;|&nbsp; Date: "+r.date+"</div></div>"
+    +"<div class='stats'>"
+    +"<div class='stat'><div class='stat-num' style='color:#1A7A4A'>"+r.correct+"</div><div class='stat-label'>CORRECT</div></div>"
+    +"<div class='stat'><div class='stat-num' style='color:#D0021B'>"+r.wrong+"</div><div class='stat-label'>WRONG</div></div>"
+    +"<div class='stat'><div class='stat-num' style='color:#9E8E80'>"+r.unanswered+"</div><div class='stat-label'>SKIPPED</div></div>"
+    +"<div class='stat'><div class='stat-num'>"+Math.floor(r.timeUsed/60)+"m</div><div class='stat-label'>TIME USED</div></div>"
+    +"</div>"
+    +"<h2>Subject-wise Score</h2>"
+    +"<table><thead><tr><th>Subject</th><th>Progress</th><th>Score</th></tr></thead><tbody>"+subRows+"</tbody></table>"
+    +"<h2>Answer Key — All Questions</h2>"
+    +"<table><thead><tr><th>#</th><th>Question</th><th>Correct Answer</th><th>Your Answer</th><th>Result</th></tr></thead><tbody>"+ansRows+"</tbody></table>"
+    +"<div class='footer'>MAHA-TET Prep App &nbsp;|&nbsp; techkrystle.com &nbsp;|&nbsp; Free Practice for Maharashtra Teachers</div>"
+    +"</body></html>";
   var blob=new Blob([html],{type:"text/html"});
   var url=URL.createObjectURL(blob);
   var a=document.createElement("a");
-  a.href=url;a.download="MAHATET_Result_"+r.date.replace(/\//g,"-")+".html";
+  a.href=url;a.download="MAHATET_Result_"+r.date.replace(/[/]/g,"-")+".html";
   document.body.appendChild(a);a.click();document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }
@@ -745,7 +846,6 @@ function renderPaletteGrid(){
     return'<div class="palette-dot '+cls+'" onclick="goToQ('+i+')">'+(i+1)+'</div>';
   }).join("");
 }
-
 function openPalette(){renderPaletteGrid();document.getElementById("palette-overlay").classList.add("open");}
 function closePalette(){document.getElementById("palette-overlay").classList.remove("open");}
 function goToQ(i){mockTest.current=i;closePalette();renderTestQuestion();}
@@ -769,25 +869,19 @@ function renderTracker(){
     +'<div class="tracker-mini"><div class="tracker-mini-num">'+(testHistory.length-passed)+'</div><div class="tracker-mini-label">Failed</div></div>'
     +'</div>';
   document.getElementById("history-list").innerHTML=testHistory.map(function(t){
-    var badge=t.earlyExit?"PARTIAL":(t.pass?"PASS":"FAIL");
-    var badgeCls=t.earlyExit?"":"(t.pass?'pass':'fail')";
     var bc=t.earlyExit?"background:#FFF8E7;color:#B07B00":(t.pass?"background:var(--green-light);color:var(--green)":"background:#FDECEA;color:var(--danger)");
+    var badge=t.earlyExit?"PARTIAL":(t.pass?"PASS":"FAIL");
     return'<div class="history-item">'
       +'<div class="history-score '+(t.pass&&!t.earlyExit?"pass":"fail")+'">'+t.pct+'%</div>'
-      +'<div class="history-info"><div class="history-title">Paper '+(t.paper===1?"I":"II")+' | '+(t.total||30)+'Q Mock Test'+(t.earlyExit?" (Early Exit)":"")+'</div>'
-      +'<div class="history-date">'+t.date+' · '+t.correct+'/'+(t.total||30)+' correct</div></div>'
+      +'<div class="history-info"><div class="history-title">Paper '+(t.paper===1?"I":"II")+' | '+(t.total||50)+'Q'+(t.earlyExit?" (Early Exit)":"")+'</div>'
+      +'<div class="history-date">'+t.date+' · '+t.correct+'/'+(t.total||50)+' correct</div></div>'
       +'<span class="history-badge" style="'+bc+'">'+badge+'</span>'
       +'</div>';
   }).join("");
 }
 
 function clearHistory(){
-  if(confirm("Clear all test history?")){
-    testHistory=[];
-    localStorage.setItem("mahatet_history","[]");
-    renderTracker();
-    renderHomeBanner();
-  }
+  if(confirm("Clear all test history?")){testHistory=[];localStorage.setItem("mahatet_history","[]");renderTracker();renderHomeBanner();}
 }
 
 updateTestDetails();
