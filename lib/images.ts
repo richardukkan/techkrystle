@@ -7,6 +7,7 @@ export const PLAN_IMAGES: Record<string, string> = {
   "samsung-care-plus": "/images/plans/samsung-galaxy.jpg",
   "walmart-protection-plan": "/images/plans/walmart.jpg",
   squaretrade: "/images/plans/squaretrade.jpg",
+  "verizon-mobile-protect": "/images/plans/verizon.jpg",
 };
 
 export function getPlanImage(slug: string, category: string): string {
