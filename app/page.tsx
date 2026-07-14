@@ -3,7 +3,7 @@ import Image from "next/image";
 import { plans } from "@/data/plans";
 import { guides } from "@/data/guides";
 import VerdictBadge from "@/components/VerdictBadge";
-import { CATEGORY_IMAGES_SMALL, HERO_IMAGE } from "@/lib/images";
+import { HERO_IMAGE, getPlanImageSmall } from "@/lib/images";
 
 export default function Home() {
   const featured = plans.slice(0, 8);
@@ -79,7 +79,7 @@ export default function Home() {
               >
                 <div className="relative h-24 w-full">
                   <Image
-                    src={CATEGORY_IMAGES_SMALL[plan.category]}
+                    src={getPlanImageSmall(plan.slug, plan.category)}
                     alt=""
                     fill
                     className="object-cover"

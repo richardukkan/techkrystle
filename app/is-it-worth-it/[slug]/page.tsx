@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { getPlanBySlug, getAllPlanSlugs } from "@/data/plans";
 import VerdictBadge from "@/components/VerdictBadge";
 import CostCompareBar from "@/components/CostCompareBar";
-import { CATEGORY_IMAGES } from "@/lib/images";
+import { getPlanImage } from "@/lib/images";
 
 export async function generateStaticParams() {
   return getAllPlanSlugs().map((slug) => ({ slug }));
@@ -39,7 +39,7 @@ export default async function PlanPage({
       <section style={{ background: "var(--ink)" }} className="relative overflow-hidden px-6 pt-12 pb-10">
         <div className="absolute inset-0">
           <Image
-            src={CATEGORY_IMAGES[plan.category]}
+            src={getPlanImage(plan.slug, plan.category)}
             alt=""
             fill
             priority

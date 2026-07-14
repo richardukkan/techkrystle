@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { plans } from "@/data/plans";
 import VerdictBadge from "@/components/VerdictBadge";
-import { CATEGORY_IMAGES_SMALL } from "@/lib/images";
+import { getPlanImageSmall } from "@/lib/images";
 
 export const metadata: Metadata = {
   title: "Is it worth it? Every warranty and protection plan, verdict by verdict",
@@ -31,7 +31,7 @@ export default function IsItWorthItHub() {
               style={{ border: "0.5px solid var(--steel)" }}
             >
               <div className="relative h-28 w-full">
-                <Image src={CATEGORY_IMAGES_SMALL[plan.category]} alt="" fill className="object-cover" />
+                <Image src={getPlanImageSmall(plan.slug, plan.category)} alt="" fill className="object-cover" />
               </div>
               <div className="p-5">
                 <div className="flex items-start justify-between gap-3 mb-3">
