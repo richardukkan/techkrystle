@@ -10,6 +10,7 @@ export interface Guide {
   metaDescription: string;
   category: "comparison" | "situational" | "how-to";
   dek: string;
+  takeaway: string;
   lastUpdated: string;
   comparisonTable?: ComparisonTable;
   body: { heading: string; paragraphs: string[] }[];
@@ -24,6 +25,7 @@ export const guides: Guide[] = [
       "AppleCare+ has lower deductibles and genuine Apple parts. Asurion offers same-day repair through more locations and covers any phone brand. Here's the real comparison.",
     category: "comparison",
     dek: "Both protect an iPhone. They do it very differently — and the right one depends on where you buy your service and how you file claims.",
+    takeaway: "AppleCare+ usually costs less per claim. Asurion usually gets you a same-day repair nearby. Pick based on which one you'll actually need.",
     lastUpdated: "July 2026",
     comparisonTable: {
       columnA: "AppleCare+",
@@ -69,6 +71,7 @@ export const guides: Guide[] = [
       "AppleCare+ costs more upfront but has a lower deductible and genuine parts. SquareTrade is cheaper and covers theft-adjacent situations differently. Here's the breakdown.",
     category: "comparison",
     dek: "One is Apple's own plan, the other is a flat-fee third party now owned by Allstate. The gap between them comes down to deductible math and what happens if your phone is stolen.",
+    takeaway: "SquareTrade runs roughly half the price of AppleCare+ over two years — but it drops theft and loss coverage entirely.",
     lastUpdated: "July 2026",
     comparisonTable: {
       columnA: "AppleCare+",
@@ -113,6 +116,7 @@ export const guides: Guide[] = [
       "SquareTrade offers a flat upfront price with no monthly billing. Asurion bundles into your carrier bill and covers loss and theft. Here's how to choose.",
     category: "comparison",
     dek: "Both are third-party plans that work across device brands. The real difference is billing structure and whether you need theft coverage.",
+    takeaway: "SquareTrade wins on price if you're careful with your phone. Asurion wins if you need theft coverage or want everything on one bill.",
     lastUpdated: "July 2026",
     comparisonTable: {
       columnA: "SquareTrade / Allstate",
@@ -150,6 +154,7 @@ export const guides: Guide[] = [
       "The answer depends on how you use the laptop, not how much it cost. Here's a framework for deciding, plus real repair cost ranges to check your math against.",
     category: "situational",
     dek: "A laptop that never leaves a desk has a very different risk profile than one that rides in a backpack every day. Match the plan to the actual use case.",
+    takeaway: "If the plan costs less than one likely repair, it's usually worth buying. If it costs close to a used replacement, it usually isn't.",
     lastUpdated: "July 2026",
     relatedPlans: ["applecare-plus-macbook", "dell-premium-support", "squaretrade"],
     body: [
@@ -182,6 +187,7 @@ export const guides: Guide[] = [
       "Modern TVs are fairly reliable, but panel repairs are expensive when they do fail. Here's how to decide if a protection plan makes sense for your set.",
     category: "situational",
     dek: "TVs mostly fail for two reasons: manufacturing defects (usually caught within the standard warranty) or accidental damage. Which one you're worried about should drive the decision.",
+    takeaway: "A TV panel repair can cost close to a new TV. That changes the math compared to a phone or laptop, where repair is usually the cheaper option.",
     lastUpdated: "July 2026",
     relatedPlans: ["geek-squad-protection", "walmart-protection-plan"],
     body: [
@@ -208,6 +214,7 @@ export const guides: Guide[] = [
       "AppleCare+ can be cancelled anytime for a prorated refund of unused coverage. Here's exactly how to do it on iPhone, in Settings, or by contacting Apple.",
     category: "how-to",
     dek: "Cancelling is straightforward, and Apple refunds the unused portion — you're not locked in even if you paid upfront.",
+    takeaway: "You can cancel AppleCare+ anytime for a prorated refund — you're never locked into the full term.",
     lastUpdated: "July 2026",
     relatedPlans: ["applecare-plus-iphone"],
     body: [
@@ -240,6 +247,7 @@ export const guides: Guide[] = [
       "Many credit cards add a year to the manufacturer's warranty and include purchase protection against damage or theft, automatically, at no extra cost. Here's how to check yours.",
     category: "situational",
     dek: "Before paying for a protection plan, it's worth five minutes to check whether the card you used to buy the item already covers part of what you're about to pay for.",
+    takeaway: "Many cards already add a free year of warranty and 90–120 days of purchase protection. Check before paying for coverage you might already have.",
     lastUpdated: "July 2026",
     relatedPlans: [],
     body: [
@@ -271,6 +279,7 @@ export const guides: Guide[] = [
       "Extended warranties are profitable for sellers because most people never file a claim. That doesn't mean they're always a bad deal — here's how to tell the difference.",
     category: "situational",
     dek: "The general answer is 'usually not, with real exceptions' — and the exceptions are specific enough to check for yourself before deciding either way.",
+    takeaway: "Compare the plan's total cost to one likely repair, and be honest about your own track record. That's the whole test.",
     lastUpdated: "July 2026",
     relatedPlans: [],
     body: [

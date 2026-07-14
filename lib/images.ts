@@ -36,3 +36,21 @@ export const CATEGORY_IMAGES_SMALL: Record<string, string> = {
 
 export const HERO_IMAGE =
   "https://images.unsplash.com/photo-1550041473-d296a3a8a18a?auto=format&fit=crop&w=1600&q=70";
+
+// Guide page hero images — mix of custom uploads and stock, matched to topic.
+export const GUIDE_IMAGES: Record<string, string> = {
+  "applecare-vs-asurion": "/images/plans/iphone.jpg",
+  "applecare-vs-squaretrade": "/images/plans/iphone.jpg",
+  "squaretrade-vs-asurion": "/images/plans/squaretrade.jpg",
+  "do-i-need-extended-warranty-on-laptop": "/images/plans/macbook.jpg",
+  "do-i-need-extended-warranty-on-tv": CATEGORY_IMAGES.tv,
+  "how-to-cancel-applecare": "/images/plans/iphone.jpg",
+  "does-credit-card-extend-warranty":
+    "https://images.unsplash.com/photo-1578670812003-60745e2c2ea9?auto=format&fit=crop&w=1200&q=70",
+  "extended-warranty-worth-it":
+    "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=70",
+};
+
+export function getGuideImage(slug: string): string {
+  return GUIDE_IMAGES[slug] ?? CATEGORY_IMAGES.phone;
+}

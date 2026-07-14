@@ -3,7 +3,7 @@ import Image from "next/image";
 import { plans } from "@/data/plans";
 import { guides } from "@/data/guides";
 import VerdictBadge from "@/components/VerdictBadge";
-import { HERO_IMAGE, getPlanImageSmall } from "@/lib/images";
+import { HERO_IMAGE, getPlanImageSmall, getGuideImage } from "@/lib/images";
 
 export default function Home() {
   const featured = plans.slice(0, 8);
@@ -98,24 +98,48 @@ export default function Home() {
       </section>
 
       {/* How it works */}
-      <section className="px-6 py-12" style={{ background: "white", borderTop: "0.5px solid var(--steel)", borderBottom: "0.5px solid var(--steel)" }}>
-        <div className="mx-auto max-w-5xl grid sm:grid-cols-3 gap-8">
+      <section className="px-6 py-14" style={{ background: "white", borderTop: "0.5px solid var(--steel)", borderBottom: "0.5px solid var(--steel)" }}>
+        <div className="mx-auto max-w-5xl grid sm:grid-cols-3 gap-10">
           <div>
-            <div className="font-mono text-xs mb-2" style={{ color: "var(--cobalt)" }}>01</div>
+            <div
+              className="w-11 h-11 rounded-full flex items-center justify-center mb-4"
+              style={{ background: "#EAEFFC" }}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M12 3v6M12 15v6M4.2 7.5l5.2 3M14.6 13.5l5.2 3M19.8 7.5l-5.2 3M9.4 13.5l-5.2 3" stroke="var(--cobalt)" strokeWidth="2" strokeLinecap="round" />
+                <circle cx="12" cy="12" r="2.2" fill="var(--cobalt)" />
+              </svg>
+            </div>
             <h3 className="font-display font-bold text-base mb-2">We check the real numbers</h3>
             <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
               Plan cost, deductible, and what an out-of-warranty repair actually costs — pulled from the providers&apos; own pricing pages.
             </p>
           </div>
           <div>
-            <div className="font-mono text-xs mb-2" style={{ color: "var(--cobalt)" }}>02</div>
+            <div
+              className="w-11 h-11 rounded-full flex items-center justify-center mb-4"
+              style={{ background: "#EAEFFC" }}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <rect x="4" y="6" width="16" height="12" rx="2" stroke="var(--cobalt)" strokeWidth="2" />
+                <path d="M8 10.5l2.2 2.2L16 7.5" stroke="var(--cobalt)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
             <h3 className="font-display font-bold text-base mb-2">We stamp a verdict</h3>
             <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
               Worth it, skip it, or depends — with the specific situations that flip the answer either way.
             </p>
           </div>
           <div>
-            <div className="font-mono text-xs mb-2" style={{ color: "var(--cobalt)" }}>03</div>
+            <div
+              className="w-11 h-11 rounded-full flex items-center justify-center mb-4"
+              style={{ background: "#EAEFFC" }}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M4 12a8 8 0 0 1 13.9-5.4M20 12a8 8 0 0 1-13.9 5.4" stroke="var(--cobalt)" strokeWidth="2" strokeLinecap="round" />
+                <path d="M18 4v3.6h-3.6M6 20v-3.6h3.6" stroke="var(--cobalt)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
             <h3 className="font-display font-bold text-base mb-2">We keep it current</h3>
             <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
               Pricing changes. Every page shows a last-updated date, and we refresh the numbers on a regular cycle.
@@ -138,13 +162,18 @@ export default function Home() {
               <Link
                 key={guide.slug}
                 href={`/guides/${guide.slug}`}
-                className="block rounded-xl p-5 bg-white hover-lift"
+                className="flex gap-4 rounded-xl overflow-hidden bg-white hover-lift"
                 style={{ border: "0.5px solid var(--steel)" }}
               >
-                <h3 className="font-medium text-base mb-1.5">{guide.title}</h3>
-                <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-                  {guide.dek}
-                </p>
+                <div className="relative w-24 flex-shrink-0">
+                  <Image src={getGuideImage(guide.slug)} alt="" fill className="object-cover" />
+                </div>
+                <div className="py-4 pr-4 flex-1 min-w-0">
+                  <h3 className="font-medium text-base mb-1.5 leading-snug">{guide.title}</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+                    {guide.dek}
+                  </p>
+                </div>
               </Link>
             ))}
           </div>
