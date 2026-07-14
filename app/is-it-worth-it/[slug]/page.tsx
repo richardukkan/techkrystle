@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { getPlanBySlug, getAllPlanSlugs } from "@/data/plans";
 import VerdictBadge from "@/components/VerdictBadge";
 import CostCompareBar from "@/components/CostCompareBar";
+import FaqAccordion from "@/components/FaqAccordion";
 import { getPlanImage } from "@/lib/images";
 
 export async function generateStaticParams() {
@@ -170,6 +171,14 @@ export default async function PlanPage({
               </p>
             ))}
           </div>
+
+          {/* FAQ */}
+          {plan.faq && plan.faq.length > 0 && (
+            <div className="mb-10">
+              <h2 className="font-display font-bold text-lg mb-4">Common questions</h2>
+              <FaqAccordion items={plan.faq} />
+            </div>
+          )}
 
           {/* Alternatives */}
           {plan.alternatives.length > 0 && (

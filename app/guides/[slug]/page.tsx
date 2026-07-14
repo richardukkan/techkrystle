@@ -6,6 +6,7 @@ import { getGuideBySlug, getAllGuideSlugs } from "@/data/guides";
 import { getPlanBySlug } from "@/data/plans";
 import VerdictBadge from "@/components/VerdictBadge";
 import ComparisonTableView from "@/components/ComparisonTableView";
+import StatCallout from "@/components/StatCallout";
 import { getGuideImage } from "@/lib/images";
 
 export async function generateStaticParams() {
@@ -103,25 +104,32 @@ export default async function GuidePage({
 
           <div className="space-y-9 mb-10">
             {guide.body.map((section, i) => (
-              <div key={i} className="pl-5 relative">
-                <div
-                  className="absolute left-0 top-1 bottom-1 w-[3px] rounded-full"
-                  style={{ background: i % 2 === 0 ? "var(--cobalt)" : "var(--slate)" }}
-                />
-                <p
-                  className="font-mono text-[10px] mb-2 tracking-wide"
-                  style={{ color: "var(--text-muted)" }}
-                >
-                  {String(i + 1).padStart(2, "0")}
-                </p>
-                <h2 className="font-display font-bold text-lg mb-3">{section.heading}</h2>
-                <div className="space-y-3">
-                  {section.paragraphs.map((p, j) => (
-                    <p key={j} className="text-base leading-relaxed" style={{ color: "var(--text-primary)" }}>
-                      {p}
-                    </p>
-                  ))}
+              <div key={i}>
+                <div className="pl-5 relative">
+                  <div
+                    className="absolute left-0 top-1 bottom-1 w-[3px] rounded-full"
+                    style={{ background: i % 2 === 0 ? "var(--cobalt)" : "var(--slate)" }}
+                  />
+                  <p
+                    className="font-mono text-[10px] mb-2 tracking-wide"
+                    style={{ color: "var(--text-muted)" }}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </p>
+                  <h2 className="font-display font-bold text-lg mb-3">{section.heading}</h2>
+                  <div className="space-y-3">
+                    {section.paragraphs.map((p, j) => (
+                      <p key={j} className="text-base leading-relaxed" style={{ color: "var(--text-primary)" }}>
+                        {p}
+                      </p>
+                    ))}
+                  </div>
                 </div>
+                {i === 0 && (
+                  <div className="mt-8">
+                    <StatCallout stat={guide.keyStat} label={guide.keyStatLabel} tone={guide.category === "situational" ? "signal" : "cobalt"} />
+                  </div>
+                )}
               </div>
             ))}
           </div>

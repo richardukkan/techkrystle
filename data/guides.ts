@@ -11,6 +11,8 @@ export interface Guide {
   category: "comparison" | "situational" | "how-to";
   dek: string;
   takeaway: string;
+  keyStat: string;
+  keyStatLabel: string;
   lastUpdated: string;
   comparisonTable?: ComparisonTable;
   body: { heading: string; paragraphs: string[] }[];
@@ -26,6 +28,8 @@ export const guides: Guide[] = [
     category: "comparison",
     dek: "Both protect an iPhone. They do it very differently — and the right one depends on where you buy your service and how you file claims.",
     takeaway: "AppleCare+ usually costs less per claim. Asurion usually gets you a same-day repair nearby. Pick based on which one you'll actually need.",
+    keyStat: "$29",
+    keyStatLabel: "AppleCare+ screen repair deductible vs up to $275 with Asurion",
     lastUpdated: "July 2026",
     comparisonTable: {
       columnA: "AppleCare+",
@@ -62,6 +66,21 @@ export const guides: Guide[] = [
           "If your area has a uBreakiFix location but an Apple Store is a long drive away, Asurion's repair turnaround may beat AppleCare+ in practice, even if AppleCare+ wins on paper cost.",
         ],
       },
+      {
+        heading: "What actually happens when you file a claim",
+        paragraphs: [
+          "With AppleCare+, a claim typically means booking a Genius Bar appointment or mailing the device to Apple, with the $29 deductible charged at the time of service. Turnaround for an in-store screen repair is often same-day; a mail-in repair can take several business days.",
+          "With Asurion, most carrier plans route you through the myasurion.com portal or app, where you can schedule an in-person repair at a nearby uBreakiFix location or arrange a mail-in replacement. The deductible is charged upfront when you file, not after the repair is complete.",
+        ],
+      },
+      {
+        heading: "The verdict, situation by situation",
+        paragraphs: [
+          "Single iPhone, careful owner, lives near an Apple Store: AppleCare+ wins on price and genuine parts.",
+          "Multiple phones on one family plan, mixed Apple and Android: Asurion's one-plan-fits-all structure is simpler to manage even if it costs slightly more per device.",
+          "Frequent claims filer or someone who's lost a phone before: AppleCare+ with Theft and Loss usually has the lower total cost, but confirm Find My was active at the time of any past incident before assuming a future claim would be covered.",
+        ],
+      },
     ],
   },
   {
@@ -72,6 +91,8 @@ export const guides: Guide[] = [
     category: "comparison",
     dek: "One is Apple's own plan, the other is a flat-fee third party now owned by Allstate. The gap between them comes down to deductible math and what happens if your phone is stolen.",
     takeaway: "SquareTrade runs roughly half the price of AppleCare+ over two years — but it drops theft and loss coverage entirely.",
+    keyStat: "$129",
+    keyStatLabel: "SquareTrade's 2-year price vs ~$260 for AppleCare+",
     lastUpdated: "July 2026",
     comparisonTable: {
       columnA: "AppleCare+",
@@ -107,6 +128,13 @@ export const guides: Guide[] = [
           "Choose AppleCare+ if you want genuine parts, the lowest possible per-claim cost, or theft and loss protection.",
         ],
       },
+      {
+        heading: "A worked example",
+        paragraphs: [
+          "Say you buy a current iPhone Pro and file one screen repair claim over two years. With AppleCare+, you'd pay roughly $240–$280 in premiums plus a $29 deductible — about $270–$310 total. With SquareTrade, you'd pay $129 upfront plus a $99–$149 deductible — about $228–$278 total. SquareTrade still comes out slightly ahead even with one claim.",
+          "Now say you file two claims in the same period. AppleCare+'s total rises to roughly $300–$340. SquareTrade's rises to $327–$427. At that point AppleCare+'s lower per-incident cost flips the comparison in its favor — which is the core reason claim frequency, not just plan price, should drive the decision.",
+        ],
+      },
     ],
   },
   {
@@ -117,6 +145,8 @@ export const guides: Guide[] = [
     category: "comparison",
     dek: "Both are third-party plans that work across device brands. The real difference is billing structure and whether you need theft coverage.",
     takeaway: "SquareTrade wins on price if you're careful with your phone. Asurion wins if you need theft coverage or want everything on one bill.",
+    keyStat: "$99–$149",
+    keyStatLabel: "SquareTrade's per-claim deductible vs $29–$275 with Asurion",
     lastUpdated: "July 2026",
     comparisonTable: {
       columnA: "SquareTrade / Allstate",
@@ -145,6 +175,13 @@ export const guides: Guide[] = [
           "If your phone has never left your possession in five years of ownership, that gap may not matter to you. If you've ever left a phone in a cab or had one lifted from a bag, it matters quite a bit.",
         ],
       },
+      {
+        heading: "Repair network and turnaround",
+        paragraphs: [
+          "Asurion's uBreakiFix network means many claims get resolved same-day, in person. SquareTrade generally routes claims through its own app or a mail-in process, which tends to take several business days but doesn't require finding a physical location near you.",
+          "If speed matters more than saving a few dollars — a work phone you can't be without, for instance — that turnaround difference can outweigh the price gap entirely.",
+        ],
+      },
     ],
   },
   {
@@ -155,6 +192,8 @@ export const guides: Guide[] = [
     category: "situational",
     dek: "A laptop that never leaves a desk has a very different risk profile than one that rides in a backpack every day. Match the plan to the actual use case.",
     takeaway: "If the plan costs less than one likely repair, it's usually worth buying. If it costs close to a used replacement, it usually isn't.",
+    keyStat: "$200–$1,300",
+    keyStatLabel: "typical out-of-warranty laptop repair cost range",
     lastUpdated: "July 2026",
     relatedPlans: ["applecare-plus-macbook", "dell-premium-support", "squaretrade"],
     body: [
@@ -178,6 +217,13 @@ export const guides: Guide[] = [
           "Many credit cards extend the manufacturer's warranty by an extra year automatically when you use that card to buy the laptop, and some include accidental damage or purchase protection for a limited window after purchase. It costs nothing to check your card's benefits guide before paying for a plan that might duplicate coverage you already have.",
         ],
       },
+      {
+        heading: "Business vs personal use changes the math",
+        paragraphs: [
+          "For a laptop that's core to your income — freelance work, remote employment, a small business — downtime costs more than the repair itself. A plan with fast turnaround (like Dell's next-business-day onsite service, or a local Apple Store visit) can be worth paying for even if the pure repair-cost math is a coin flip.",
+          "For a personal laptop used for browsing and streaming, a slower repair timeline is a minor inconvenience rather than a real cost, which tilts the decision more toward self-insuring unless the household has a real history of accidents.",
+        ],
+      },
     ],
   },
   {
@@ -188,6 +234,8 @@ export const guides: Guide[] = [
     category: "situational",
     dek: "TVs mostly fail for two reasons: manufacturing defects (usually caught within the standard warranty) or accidental damage. Which one you're worried about should drive the decision.",
     takeaway: "A TV panel repair can cost close to a new TV. That changes the math compared to a phone or laptop, where repair is usually the cheaper option.",
+    keyStat: "2x",
+    keyStatLabel: "how often a TV repair rivals the cost of a new one",
     lastUpdated: "July 2026",
     relatedPlans: ["geek-squad-protection", "walmart-protection-plan"],
     body: [
@@ -205,6 +253,13 @@ export const guides: Guide[] = [
           "Because of that, a protection plan on a TV is often more about avoiding a full replacement cost than a comparatively cheap repair — check whether the plan you're considering offers full replacement for major failures, not just parts-and-labor repair.",
         ],
       },
+      {
+        heading: "Screen technology affects the odds",
+        paragraphs: [
+          "OLED panels are generally more prone to burn-in over years of static-image use (news tickers, game HUDs left on pause) than LED/LCD panels, though modern OLEDs have mitigations built in. If you own an OLED and use it for gaming or cable news for long stretches, that's a specific risk worth weighing when deciding on coverage.",
+          "Very large TVs (75 inches and up) also carry higher shipping and handling risk if a repair requires the panel to be sent out, which is another reason in-home service — standard on most Geek Squad and manufacturer plans for large screens — matters more as screen size increases.",
+        ],
+      },
     ],
   },
   {
@@ -215,6 +270,8 @@ export const guides: Guide[] = [
     category: "how-to",
     dek: "Cancelling is straightforward, and Apple refunds the unused portion — you're not locked in even if you paid upfront.",
     takeaway: "You can cancel AppleCare+ anytime for a prorated refund — you're never locked into the full term.",
+    keyStat: "30 days",
+    keyStatLabel: "the window for a full refund after purchase",
     lastUpdated: "July 2026",
     relatedPlans: ["applecare-plus-iphone"],
     body: [
@@ -238,6 +295,14 @@ export const guides: Guide[] = [
           "Monthly subscribers simply stop being charged once cancelled — there's no prepaid balance to refund since you're paying as you go.",
         ],
       },
+      {
+        heading: "When it makes sense to cancel",
+        paragraphs: [
+          "Selling or trading in the device is the most common reason — canceling first (or transferring coverage as part of the sale) avoids paying for protection on a phone you no longer own.",
+          "Switching to AppleCare One is another common trigger: if you're consolidating multiple device plans into the $19.99/month multi-device subscription, you'd cancel the individual AppleCare+ plans first to avoid paying for both.",
+          "If you've simply decided the plan isn't worth it after re-running the numbers — no claims filed, careful with the device — canceling partway through the term still gets you a prorated refund rather than losing the remaining value outright.",
+        ],
+      },
     ],
   },
   {
@@ -248,6 +313,8 @@ export const guides: Guide[] = [
     category: "situational",
     dek: "Before paying for a protection plan, it's worth five minutes to check whether the card you used to buy the item already covers part of what you're about to pay for.",
     takeaway: "Many cards already add a free year of warranty and 90–120 days of purchase protection. Check before paying for coverage you might already have.",
+    keyStat: "+1 year",
+    keyStatLabel: "how much some cards extend the manufacturer warranty for free",
     lastUpdated: "July 2026",
     relatedPlans: [],
     body: [
@@ -270,6 +337,13 @@ export const guides: Guide[] = [
           "If your card already extends the warranty by a year and includes 90–120 days of purchase protection, a lot of the highest-risk early period of ownership may already be covered for free. That can make a shorter or cheaper third-party plan a better fit than the most expensive option, since you're only really buying protection for the gap your card doesn't cover.",
         ],
       },
+      {
+        heading: "How to file a claim on card-based coverage",
+        paragraphs: [
+          "Unlike a manufacturer or third-party warranty, card-based purchase protection and extended warranty benefits usually require you to call the benefits administrator listed in your card's guide — not the retailer or manufacturer — and you'll typically need the original receipt and card statement showing the purchase.",
+          "Processing times tend to be slower than a manufacturer plan's, often several weeks rather than same-day, so card-based coverage is a better fit as a backstop than as your primary plan for something you'd need fixed urgently.",
+        ],
+      },
     ],
   },
   {
@@ -280,6 +354,8 @@ export const guides: Guide[] = [
     category: "situational",
     dek: "The general answer is 'usually not, with real exceptions' — and the exceptions are specific enough to check for yourself before deciding either way.",
     takeaway: "Compare the plan's total cost to one likely repair, and be honest about your own track record. That's the whole test.",
+    keyStat: "<50%",
+    keyStatLabel: "of buyers ever file a claim on an extended warranty",
     lastUpdated: "July 2026",
     relatedPlans: [],
     body: [
@@ -299,6 +375,13 @@ export const guides: Guide[] = [
         heading: "A simple test before buying",
         paragraphs: [
           "Look up the actual out-of-warranty repair cost for the specific failure you're worried about, compare it to the plan's total cost over its full term, and be honest about how likely that failure actually is based on your own track record with similar devices. If the plan costs meaningfully less than a single likely repair, it's a reasonable buy. If it costs close to what a replacement item would run, you're often better off self-insuring.",
+        ],
+      },
+      {
+        heading: "The self-insurance alternative",
+        paragraphs: [
+          "Self-insuring simply means setting aside the money you'd have spent on a plan — say, $10–15 a month — into a fund earmarked for repairs, rather than paying a company to hold that risk for you. Over several devices and several years, many people come out ahead this way, since the fund only gets spent when something actually breaks.",
+          "The tradeoff is discipline and bad luck: self-insuring only works if you actually keep the money set aside rather than spending it, and it doesn't protect against an unlucky year where two devices break in close succession. Extended warranties exist precisely to smooth out that kind of bad-luck variance — which is a real value even though the expected-cost math often favors skipping them.",
         ],
       },
     ],
