@@ -1,3 +1,9 @@
+export interface ComparisonTable {
+  columnA: string;
+  columnB: string;
+  rows: { feature: string; a: string; b: string }[];
+}
+
 export interface Guide {
   slug: string;
   title: string;
@@ -5,6 +11,7 @@ export interface Guide {
   category: "comparison" | "situational" | "how-to";
   dek: string;
   lastUpdated: string;
+  comparisonTable?: ComparisonTable;
   body: { heading: string; paragraphs: string[] }[];
   relatedPlans?: string[];
 }
@@ -18,6 +25,18 @@ export const guides: Guide[] = [
     category: "comparison",
     dek: "Both protect an iPhone. They do it very differently — and the right one depends on where you buy your service and how you file claims.",
     lastUpdated: "July 2026",
+    comparisonTable: {
+      columnA: "AppleCare+",
+      columnB: "Asurion (carrier plan)",
+      rows: [
+        { feature: "Monthly cost", a: "$9.99–$13.99", b: "$12–$15" },
+        { feature: "Screen repair deductible", a: "$29", b: "$29–$275" },
+        { feature: "Parts used", a: "Genuine Apple parts", b: "Third-party or refurbished" },
+        { feature: "Repair location", a: "Apple Store / authorized provider", b: "uBreakiFix network" },
+        { feature: "Theft & loss coverage", a: "Yes (current models)", b: "Yes" },
+        { feature: "Works across phone brands", a: "No — Apple only", b: "Yes" },
+      ],
+    },
     relatedPlans: ["applecare-plus-iphone", "asurion"],
     body: [
       {
@@ -51,6 +70,17 @@ export const guides: Guide[] = [
     category: "comparison",
     dek: "One is Apple's own plan, the other is a flat-fee third party now owned by Allstate. The gap between them comes down to deductible math and what happens if your phone is stolen.",
     lastUpdated: "July 2026",
+    comparisonTable: {
+      columnA: "AppleCare+",
+      columnB: "SquareTrade / Allstate",
+      rows: [
+        { feature: "2-year cost", a: "~$240–$280", b: "~$129" },
+        { feature: "Screen repair deductible", a: "$29", b: "$99–$149" },
+        { feature: "Billing", a: "Monthly or upfront", b: "One-time upfront" },
+        { feature: "Theft & loss coverage", a: "Yes (current models)", b: "No, on most plans" },
+        { feature: "Parts used", a: "Genuine Apple parts", b: "Varies by repair partner" },
+      ],
+    },
     relatedPlans: ["applecare-plus-iphone", "squaretrade"],
     body: [
       {
@@ -84,6 +114,17 @@ export const guides: Guide[] = [
     category: "comparison",
     dek: "Both are third-party plans that work across device brands. The real difference is billing structure and whether you need theft coverage.",
     lastUpdated: "July 2026",
+    comparisonTable: {
+      columnA: "SquareTrade / Allstate",
+      columnB: "Asurion",
+      rows: [
+        { feature: "Billing", a: "One-time upfront", b: "Monthly, ongoing" },
+        { feature: "2-year phone plan cost", a: "~$129", b: "~$288–$360" },
+        { feature: "Deductible", a: "$99–$149", b: "$29–$275" },
+        { feature: "Theft & loss coverage", a: "No, on most plans", b: "Yes" },
+        { feature: "Works across device brands", a: "Yes", b: "Yes (via carrier)" },
+      ],
+    },
     relatedPlans: ["squaretrade", "asurion"],
     body: [
       {

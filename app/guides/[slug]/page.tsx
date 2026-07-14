@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getGuideBySlug, getAllGuideSlugs } from "@/data/guides";
 import { getPlanBySlug } from "@/data/plans";
 import VerdictBadge from "@/components/VerdictBadge";
+import ComparisonTableView from "@/components/ComparisonTableView";
 
 export async function generateStaticParams() {
   return getAllGuideSlugs().map((slug) => ({ slug }));
@@ -58,6 +59,12 @@ export default async function GuidePage({
             LAST UPDATED {guide.lastUpdated.toUpperCase()}
           </p>
 
+          {guide.comparisonTable && (
+            <div className="mb-10 overflow-x-auto">
+              <ComparisonTableView table={guide.comparisonTable} />
+            </div>
+          )}
+
           <div className="space-y-8 mb-10">
             {guide.body.map((section, i) => (
               <div key={i}>
@@ -81,7 +88,7 @@ export default async function GuidePage({
                   <Link
                     key={plan.slug}
                     href={`/is-it-worth-it/${plan.slug}`}
-                    className="flex items-center justify-between rounded-xl p-4 bg-white hover:shadow-md transition-shadow"
+                    className="flex items-center justify-between rounded-xl p-4 bg-white hover-lift"
                     style={{ border: "0.5px solid var(--steel)" }}
                   >
                     <span className="text-sm font-medium">

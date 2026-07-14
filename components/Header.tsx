@@ -11,16 +11,16 @@ export default function Header() {
           </span>
         </Link>
         <nav className="hidden sm:flex items-center gap-6 text-sm" style={{ color: "#AAB4C4" }}>
-          <Link href="/is-it-worth-it" className="hover:text-white transition-colors">
+          <Link href="/is-it-worth-it" className="nav-link hover:text-white transition-colors">
             Is it worth it?
           </Link>
-          <Link href="/guides" className="hover:text-white transition-colors">
+          <Link href="/guides" className="nav-link hover:text-white transition-colors">
             Guides
           </Link>
-          <Link href="/quiz" className="hover:text-white transition-colors">
+          <Link href="/quiz" className="nav-link hover:text-white transition-colors">
             Quiz
           </Link>
-          <Link href="/about" className="hover:text-white transition-colors">
+          <Link href="/about" className="nav-link hover:text-white transition-colors">
             About
           </Link>
         </nav>

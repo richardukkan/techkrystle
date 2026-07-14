@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getPlanBySlug, getAllPlanSlugs } from "@/data/plans";
 import VerdictBadge from "@/components/VerdictBadge";
+import CostCompareBar from "@/components/CostCompareBar";
+import { CATEGORY_IMAGES } from "@/lib/images";
 
 export async function generateStaticParams() {
   return getAllPlanSlugs().map((slug) => ({ slug }));
@@ -33,16 +36,29 @@ export default async function PlanPage({
 
   return (
     <div>
-      <section style={{ background: "var(--ink)" }} className="px-6 pt-12 pb-10">
-        <div className="mx-auto max-w-3xl">
-          <p className="font-mono text-xs tracking-widest mb-4" style={{ color: "#8A97AD" }}>
+      <section style={{ background: "var(--ink)" }} className="relative overflow-hidden px-6 pt-12 pb-10">
+        <div className="absolute inset-0">
+          <Image
+            src={CATEGORY_IMAGES[plan.category]}
+            alt=""
+            fill
+            priority
+            className="object-cover opacity-[0.18]"
+          />
+          <div
+            className="absolute inset-0"
+            style={{ background: "linear-gradient(100deg, var(--ink) 0%, var(--ink) 50%, rgba(15,22,33,0.5) 100%)" }}
+          />
+        </div>
+        <div className="relative mx-auto max-w-3xl">
+          <p className="font-mono text-xs tracking-widest mb-4 animate-in" style={{ color: "#8A97AD" }}>
             {plan.brand.toUpperCase()} — {plan.category.toUpperCase()}
           </p>
-          <h1 className="font-display font-bold text-3xl sm:text-4xl mb-5" style={{ color: "var(--platinum)" }}>
+          <h1 className="font-display font-bold text-3xl sm:text-4xl mb-5 animate-in-delay-1" style={{ color: "var(--platinum)" }}>
             {plan.title}
           </h1>
           <VerdictBadge verdict={plan.verdict} size="lg" />
-          <p className="mt-5 text-base max-w-xl leading-relaxed" style={{ color: "#AAB4C4" }}>
+          <p className="mt-5 text-base max-w-xl leading-relaxed animate-in-delay-2" style={{ color: "#AAB4C4" }}>
             {plan.verdictSummary}
           </p>
         </div>
@@ -59,12 +75,18 @@ export default async function PlanPage({
           </div>
 
           <div className="rounded-xl p-5 mb-10" style={{ background: "white", border: "0.5px solid var(--steel)" }}>
-            <div className="flex justify-between items-baseline mb-1">
-              <span className="text-sm font-medium">Repair cost without coverage</span>
-              <span className="font-mono text-base" style={{ color: "var(--signal-dark, #B23C14)" }}>
-                {plan.repairCostWithout}
-              </span>
-            </div>
+            <p className="text-xs font-medium mb-4" style={{ color: "var(--text-secondary)" }}>
+              Typical cost of a single incident
+            </p>
+            <CostCompareBar
+              withoutCost={plan.costWithoutNumeric}
+              withCost={plan.costWithNumeric}
+              withoutLabel="Without this plan"
+              withLabel="With this plan (deductible)"
+            />
+            <p className="text-xs leading-relaxed mt-4" style={{ color: "var(--text-secondary)" }}>
+              {plan.repairCostWithout}
+            </p>
             <p className="font-mono text-[10px] mt-3" style={{ color: "var(--text-muted)" }}>
               LAST UPDATED {plan.lastUpdated.toUpperCase()} — SOURCE:{" "}
               <a href={plan.officialUrl} className="underline" target="_blank" rel="noopener noreferrer">
@@ -163,7 +185,7 @@ export default async function PlanPage({
                           ? `/is-it-worth-it/${alt.slug}`
                           : `/guides/${alt.slug}`
                       }
-                      className="text-sm px-4 py-2 rounded-lg font-medium"
+                      className="text-sm px-4 py-2 rounded-lg font-medium hover-lift"
                       style={{ border: "0.5px solid var(--steel)", background: "white" }}
                     >
                       {alt.name} →

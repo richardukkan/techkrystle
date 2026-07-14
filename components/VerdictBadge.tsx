@@ -41,7 +41,7 @@ export default function VerdictBadge({
 
   return (
     <span
-      className="inline-block -rotate-3 rounded-md"
+      className="inline-block -rotate-3 rounded-md badge-pop"
       style={{
         border: `${s.borderWidth} solid ${config.color}`,
         padding: s.padding,

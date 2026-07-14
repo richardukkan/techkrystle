@@ -1,7 +1,9 @@
 import Link from "next/link";
+import Image from "next/image";
 import { plans } from "@/data/plans";
 import { guides } from "@/data/guides";
 import VerdictBadge from "@/components/VerdictBadge";
+import { CATEGORY_IMAGES_SMALL, HERO_IMAGE } from "@/lib/images";
 
 export default function Home() {
   const featured = plans.slice(0, 8);
@@ -10,32 +12,49 @@ export default function Home() {
   return (
     <div>
       {/* Hero */}
-      <section style={{ background: "var(--ink)" }} className="px-6 pt-14 pb-16">
-        <div className="mx-auto max-w-5xl">
-          <p className="font-mono text-xs tracking-widest mb-4" style={{ color: "#8A97AD" }}>
+      <section style={{ background: "var(--ink)" }} className="relative overflow-hidden px-6 pt-14 pb-16">
+        <div className="absolute inset-0">
+          <Image
+            src={HERO_IMAGE}
+            alt=""
+            fill
+            priority
+            className="object-cover opacity-[0.16]"
+            style={{ objectPosition: "70% 30%" }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(100deg, var(--ink) 0%, var(--ink) 45%, rgba(15,22,33,0.55) 100%)",
+            }}
+          />
+        </div>
+        <div className="relative mx-auto max-w-5xl">
+          <p className="font-mono text-xs tracking-widest mb-4 animate-in" style={{ color: "#8A97AD" }}>
             TECHKRYSTLE.COM — WARRANTY & PROTECTION PLAN DECISIONS
           </p>
           <h1
-            className="font-display font-bold text-4xl sm:text-5xl leading-tight max-w-2xl"
+            className="font-display font-bold text-4xl sm:text-5xl leading-tight max-w-2xl animate-in-delay-1"
             style={{ color: "var(--platinum)" }}
           >
             Skip it or buy it. We&apos;ll tell you straight.
           </h1>
-          <p className="mt-5 text-lg max-w-xl leading-relaxed" style={{ color: "#AAB4C4" }}>
+          <p className="mt-5 text-lg max-w-xl leading-relaxed animate-in-delay-1" style={{ color: "#AAB4C4" }}>
             Verdicts on AppleCare, Samsung Care+, Geek Squad, Asurion and every other
             protection plan — built from real repair costs, not marketing copy.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-wrap gap-3 animate-in-delay-2">
             <Link
               href="/is-it-worth-it"
-              className="inline-block px-5 py-3 rounded-lg font-medium text-sm"
+              className="inline-block px-5 py-3 rounded-lg font-medium text-sm hover-lift"
               style={{ background: "var(--cobalt)", color: "white" }}
             >
               Browse all verdicts
             </Link>
             <Link
               href="/quiz"
-              className="inline-block px-5 py-3 rounded-lg font-medium text-sm border"
+              className="inline-block px-5 py-3 rounded-lg font-medium text-sm border hover-lift"
               style={{ borderColor: "#3A4557", color: "var(--platinum)" }}
             >
               Take the 60-second quiz
@@ -55,13 +74,23 @@ export default function Home() {
               <Link
                 key={plan.slug}
                 href={`/is-it-worth-it/${plan.slug}`}
-                className="block rounded-xl p-4 bg-white transition-shadow hover:shadow-md"
+                className="block rounded-xl overflow-hidden bg-white hover-lift"
                 style={{ border: "0.5px solid var(--steel)" }}
               >
-                <div className="text-sm font-medium mb-3" style={{ color: "var(--text-primary)" }}>
-                  {plan.brand} {plan.device}
+                <div className="relative h-24 w-full">
+                  <Image
+                    src={CATEGORY_IMAGES_SMALL[plan.category]}
+                    alt=""
+                    fill
+                    className="object-cover"
+                  />
                 </div>
-                <VerdictBadge verdict={plan.verdict} size="sm" />
+                <div className="p-4">
+                  <div className="text-sm font-medium mb-3" style={{ color: "var(--text-primary)" }}>
+                    {plan.brand} {plan.device}
+                  </div>
+                  <VerdictBadge verdict={plan.verdict} size="sm" />
+                </div>
               </Link>
             ))}
           </div>
@@ -109,7 +138,7 @@ export default function Home() {
               <Link
                 key={guide.slug}
                 href={`/guides/${guide.slug}`}
-                className="block rounded-xl p-5 bg-white hover:shadow-md transition-shadow"
+                className="block rounded-xl p-5 bg-white hover-lift"
                 style={{ border: "0.5px solid var(--steel)" }}
               >
                 <h3 className="font-medium text-base mb-1.5">{guide.title}</h3>

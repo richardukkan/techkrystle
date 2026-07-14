@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { plans } from "@/data/plans";
 import VerdictBadge from "@/components/VerdictBadge";
+import { CATEGORY_IMAGES_SMALL } from "@/lib/images";
 
 export const metadata: Metadata = {
   title: "Is it worth it? Every warranty and protection plan, verdict by verdict",
@@ -25,19 +27,24 @@ export default function IsItWorthItHub() {
             <Link
               key={plan.slug}
               href={`/is-it-worth-it/${plan.slug}`}
-              className="block rounded-xl p-5 bg-white hover:shadow-md transition-shadow"
+              className="block rounded-xl overflow-hidden bg-white hover-lift"
               style={{ border: "0.5px solid var(--steel)" }}
             >
-              <div className="flex items-start justify-between gap-3 mb-3">
-                <div>
-                  <div className="text-xs font-mono" style={{ color: "var(--text-muted)" }}>{plan.brand}</div>
-                  <h2 className="font-medium text-base mt-0.5">{plan.device}</h2>
-                </div>
+              <div className="relative h-28 w-full">
+                <Image src={CATEGORY_IMAGES_SMALL[plan.category]} alt="" fill className="object-cover" />
               </div>
-              <VerdictBadge verdict={plan.verdict} size="sm" />
-              <p className="text-sm leading-relaxed mt-3" style={{ color: "var(--text-secondary)" }}>
-                {plan.verdictSummary}
-              </p>
+              <div className="p-5">
+                <div className="flex items-start justify-between gap-3 mb-3">
+                  <div>
+                    <div className="text-xs font-mono" style={{ color: "var(--text-muted)" }}>{plan.brand}</div>
+                    <h2 className="font-medium text-base mt-0.5">{plan.device}</h2>
+                  </div>
+                </div>
+                <VerdictBadge verdict={plan.verdict} size="sm" />
+                <p className="text-sm leading-relaxed mt-3" style={{ color: "var(--text-secondary)" }}>
+                  {plan.verdictSummary}
+                </p>
+              </div>
             </Link>
           ))}
         </div>

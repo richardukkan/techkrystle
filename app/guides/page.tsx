@@ -30,7 +30,7 @@ export default function GuidesHub() {
             <Link
               key={guide.slug}
               href={`/guides/${guide.slug}`}
-              className="block rounded-xl p-5 bg-white hover:shadow-md transition-shadow"
+              className="block rounded-xl p-5 bg-white hover-lift"
               style={{ border: "0.5px solid var(--steel)" }}
             >
               <span

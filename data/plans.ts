@@ -18,6 +18,8 @@ export interface Plan {
   bestFor: string[];
   skipIfYou: string[];
   repairCostWithout: string;
+  costWithoutNumeric: number;
+  costWithNumeric: number;
   alternatives: { name: string; slug?: string }[];
   officialUrl: string;
   lastUpdated: string;
@@ -63,6 +65,8 @@ export const plans: Plan[] = [
       "Already have phone coverage through a credit card or renter's insurance that includes electronics",
     ],
     repairCostWithout: "$279–$379 for an out-of-warranty screen repair on current Pro models, $499+ for back glass and screen together",
+    costWithoutNumeric: 329,
+    costWithNumeric: 29,
     alternatives: [
       { name: "Asurion (via carrier)", slug: "asurion" },
       { name: "SquareTrade / Allstate", slug: "squaretrade" },
@@ -118,6 +122,8 @@ export const plans: Plan[] = [
       "Plan to replace the machine within a year or two regardless of condition",
     ],
     repairCostWithout: "$500–$800 for a screen replacement, up to $1,300+ for logic board or top case replacement",
+    costWithoutNumeric: 650,
+    costWithNumeric: 99,
     alternatives: [
       { name: "SquareTrade / Allstate", slug: "squaretrade" },
       { name: "Credit card purchase protection", slug: "does-credit-card-extend-warranty" },
@@ -171,6 +177,8 @@ export const plans: Plan[] = [
       "You're buying a budget iPad where the repair cost is already close to the deductible",
     ],
     repairCostWithout: "$249–$599 for screen repair depending on iPad model",
+    costWithoutNumeric: 400,
+    costWithNumeric: 49,
     alternatives: [
       { name: "SquareTrade / Allstate", slug: "squaretrade" },
     ],
@@ -222,6 +230,8 @@ export const plans: Plan[] = [
       "Have carrier insurance or a credit card benefit that already covers the phone",
     ],
     repairCostWithout: "$500+ for a foldable screen, $200–$379 for an S-series or Ultra screen",
+    costWithoutNumeric: 380,
+    costWithNumeric: 29,
     alternatives: [
       { name: "Asurion (via carrier)", slug: "asurion" },
       { name: "SquareTrade / Allstate", slug: "squaretrade" },
@@ -276,6 +286,8 @@ export const plans: Plan[] = [
       "You'd rather compare a per-item Geek Squad plan against a flat-rate multi-device plan like SquareTrade",
     ],
     repairCostWithout: "Varies widely by product; a mid-range laptop repair often runs $150–$400, a TV panel repair can exceed the TV's replacement cost",
+    costWithoutNumeric: 275,
+    costWithNumeric: 0,
     alternatives: [
       { name: "SquareTrade / Allstate", slug: "squaretrade" },
       { name: "Manufacturer extended warranty" },
@@ -329,6 +341,8 @@ export const plans: Plan[] = [
       "Bought a lower-cost system where a full replacement isn't far off the support plan's cost",
     ],
     repairCostWithout: "Standard Dell out-of-warranty repairs commonly run $150–$400+ depending on the component",
+    costWithoutNumeric: 275,
+    costWithNumeric: 0,
     alternatives: [
       { name: "SquareTrade / Allstate", slug: "squaretrade" },
       { name: "Manufacturer standard warranty" },
@@ -382,6 +396,8 @@ export const plans: Plan[] = [
       "Rarely file claims and have gone years without needing a repair",
     ],
     repairCostWithout: "Varies by device; flagship phone screen repairs commonly run $200–$400 out of pocket",
+    costWithoutNumeric: 300,
+    costWithNumeric: 99,
     alternatives: [
       { name: "AppleCare+", slug: "applecare-plus-iphone" },
       { name: "Samsung Care+", slug: "samsung-care-plus" },
@@ -434,6 +450,8 @@ export const plans: Plan[] = [
       "Already have a manufacturer plan with a lower deductible for the same device",
     ],
     repairCostWithout: "Varies by device category; the flat plan price is usually well below a single major out-of-warranty repair",
+    costWithoutNumeric: 300,
+    costWithNumeric: 124,
     alternatives: [
       { name: "AppleCare+", slug: "applecare-plus-iphone" },
       { name: "Asurion", slug: "asurion" },
@@ -485,6 +503,8 @@ export const plans: Plan[] = [
       "Already comparing SquareTrade or a manufacturer plan with better terms for the same item",
     ],
     repairCostWithout: "Varies significantly by product category — check the specific appliance or electronics repair cost before deciding",
+    costWithoutNumeric: 250,
+    costWithNumeric: 0,
     alternatives: [
       { name: "SquareTrade / Allstate", slug: "squaretrade" },
       { name: "Manufacturer extended warranty" },
@@ -536,6 +556,8 @@ export const plans: Plan[] = [
       "Don't need the cloud backup or tech support features and just want damage coverage",
     ],
     repairCostWithout: "Flagship phone screen repairs typically run $200–$400 out of pocket",
+    costWithoutNumeric: 300,
+    costWithNumeric: 79,
     alternatives: [
       { name: "AppleCare+", slug: "applecare-plus-iphone" },
       { name: "Samsung Care+", slug: "samsung-care-plus" },
