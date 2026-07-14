@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #0F1621;
+  --ink-2: #16202E;
+  --platinum: #F6F7F9;
+  --surface: #FFFFFF;
+  --text-primary: #10151C;
+  --text-secondary: #5B6B85;
+  --text-muted: #8A97AD;
+  --cobalt: #2952E3;
+  --cobalt-dark: #1B3AA8;
+  --signal: #E5501F;
+  --signal-dark: #B23C14;
+  --slate: #5B6B85;
+  --slate-dark: #3E4A5E;
+  --steel: #D7DBE2;
+  --steel-light: #E9ECF1;
+
+  --font-display: var(--font-archivo), sans-serif;
+  --font-body: var(--font-plex-sans), sans-serif;
+  --font-mono: var(--font-plex-mono), monospace;
+}
+
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.01em;
+  font-stretch: expanded;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-platinum: var(--platinum);
+  --color-surface: var(--surface);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-cobalt: var(--cobalt);
+  --color-signal: var(--signal);
+  --color-slate: var(--slate);
+  --color-steel: var(--steel);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--platinum);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--cobalt);
+  color: white;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--cobalt);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
